@@ -4,12 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
 import ru.prmo.dto.DailyTotalDto
 import ru.prmo.dto.OperationRecordDto
 import ru.prmo.dto.UserRegistrationDto
@@ -60,15 +55,14 @@ class AuthController(
     ): String {
 //        val currentUser = userService.findByUsername(principal.name)
 //        val department = departmentService.getDepartmentById(currentUser.department!!.departmentId)
-        lateinit var dailyTotal: DailyTotalDto
-        if (date == LocalDate.now()) {
+//        lateinit var dailyTotal: DailyTotalDto
+        var dailyTotal = dailyTotalService.getDailyTotalByDate(date)!!
+        if (date == LocalDate.now() && dailyTotal.operationRecords.isEmpty()) {
             val operations = departmentService.getDepartmentByUser(principal).operations.map { it.operationName }
             dailyTotal = DailyTotalDto()
             for (operation in operations) {
                 dailyTotal.addRecord(OperationRecordDto(operationName = operation))
             }
-        } else {
-            dailyTotal = dailyTotalService.getDailyTotalByDate(date)!!
         }
 
 //        println(date)

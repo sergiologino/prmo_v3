@@ -1,8 +1,6 @@
 package ru.prmo.service
 
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
-import org.springframework.web.client.HttpClientErrorException.BadRequest
 import ru.prmo.dto.DailyTotalDto
 import ru.prmo.dto.OperationRecordDto
 import ru.prmo.entity.DailyTotalEntity
@@ -10,7 +8,6 @@ import ru.prmo.entity.OperationRecordEntity
 import ru.prmo.exception.OneDatasetPerDateException
 import ru.prmo.repository.DailyTotalRepository
 import ru.prmo.repository.OperationRecordRepository
-import java.security.InvalidParameterException
 import java.security.Principal
 import java.time.LocalDate
 
@@ -25,7 +22,8 @@ class DailyTotalService(
 
     fun createDailyTotal(dailyTotalDto: DailyTotalDto, principal: Principal) {
         val dt = getDailyTotalByDate(LocalDate.now())
-        if (dt != null) {
+
+        if (dt!!.operationRecords.isNotEmpty()) {
             throw OneDatasetPerDateException()
         }
         val currentUser = userService.findByUsername(principal.name)
