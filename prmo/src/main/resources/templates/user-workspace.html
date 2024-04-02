@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ПРМО</title>
+    <link th:href="@{/styles/css/operation-records.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/actions.js}" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+<!--<div class="header">-->
+<!--    <img th:src="@{images/prmo_logo_small.png}" alt="logo_sm" >-->
+<!--    <h2>“РЖД МЕДИЦИНА” г. КАЛУГА ОТЧЕТ О ПРЕДРЕЙСОВЫХ ОСМОТРАХ</h2>-->
+<!--</div>-->
+<!--<div class="header">-->
+<!--    -->
+<!--</div>-->
+
+<div class="main">
+    <img th:src="@{images/logo/prmo_logo_small.png}" alt="logo_sm">
+    <h3>“РЖД МЕДИЦИНА” г. КАЛУГА ОТЧЕТ О ПРЕДРЕЙСОВЫХ ОСМОТРАХ</h3>
+    <form action="#" th:action="@{/user/workspace}">
+        <div class="datepicker">
+            <button type="submit" onclick="decreaseDay()">&lt;</button>
+        </div>
+        <div class="datepicker"><input type="date" id="dateField" th:name="date" th:value="${currentDate}"></div>
+        <div class="datepicker">
+            <button type="submit" id="incBtn" onclick="increaseDay()">&gt;</button>
+        </div>
+    </form>
+
+
+    <form action="#" th:action="@{/user/workspace}" th:object="${form}" method="post">
+
+        <!--        <p>Выберите дату: <input type="date" id="dateField" th:field="${form.date}">-->
+        <div th:if="${ not#lists.isEmpty(form.operationRecords)}">
+            <table id="operations">
+                <thead>
+                <tr>
+                    <th>Процедуры</th>
+                    <th>Количество</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="record, itemStat : ${form.operationRecords}">
+                    <td><input th:field="*{operationRecords[__${itemStat.index}__].operationName}" th:readonly="true">
+                    </td>
+                    <td><input type="text" th:field="*{operationRecords[__${itemStat.index}__].count}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div th:if="${#temporals.format(currentDate, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}" class="wrap">
+                <button type="submit" id="sendDataBtn" onclick="successSubmit()">
+                    Отправить
+                </button>
+            </div>
+        </div>
+        <div th:if="${#lists.isEmpty(form.operationRecords)}">
+            <h3>Данные отсутствуют</h3>
+        </div>
+    </form>
+</div>
+<script>
+    setCurrentDateToDatePicker()
+</script>
+</body>
+</html>

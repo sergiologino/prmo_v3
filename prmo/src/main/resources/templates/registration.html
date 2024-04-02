@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>ПРМО</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+<body>
+
+<h2>Добавление нового пользователя</h2>
+
+<div>
+
+    <form method="post" th:action="@{/admin/registration}" th:object="${user}">
+        <input id="username" required type="text" th:field="*{username}"/>
+        <input id="password"  required type="text" th:field="*{password}"/>
+        <select th:field="*{department}">
+            <option th:each="department: ${departments}" th:value="${department}" th:text="${department}"></option>
+        </select>
+        <input type="submit" value="Create User">
+    </form>
+</div>
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+server:
+  port: 8039
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/prmo_db
+    username: postgres
+    password: "postgres"
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+        temp:
+          use_jdbc_metadata_defaults: false
+        cache:
+
+
+  liquibase:
+    change-log: classpath:liquibase/changelog.yaml

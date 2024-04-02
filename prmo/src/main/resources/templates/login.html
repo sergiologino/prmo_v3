@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ПРМО</title>
+    <link th:href="@{/styles/css/login.css}" rel="stylesheet" />
+</head>
+
+<body>
+<div class="main">
+    <img th:src="@{images/logo/prmo_logo_mid.png}" alt="logo_md">
+    <h1>“РЖД МЕДИЦИНА” г. КАЛУГА ОТЧЕТ О ПРЕДРЕЙСОВЫХ ОСМОТРАХ</h1>
+    <div th:if="${param.error}"> Неверное имя пользователя или пароль</div>
+    <form th:action="@{/login}" method="post">
+        <label for="username">
+            Имя пользователя:
+        </label>
+        <input type="text"
+               id="username"
+               name="username"
+               autofocus="autofocus"
+               placeholder="Введите имя пользователя" required>
+
+        <label for="password">
+            Пароль:
+        </label>
+        <input type="password"
+               id="password"
+               name="password"
+               placeholder="Введите пароль" required>
+
+        <label for="remember">
+            Запомнить меня
+        </label>
+        <input type="checkbox"
+               id="remember"
+               name="remember-me"
+               checked>
+
+        <div class="wrap">
+            <button type="submit">
+                Войти
+            </button>
+        </div>
+    </form>
+
+</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Please Log In</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Please Log In</h1>-->
+<!--<div th:if="${param.error}">-->
+<!--    Invalid username and password.</div>-->
+<!--<div th:if="${param.logout}">-->
+<!--    You have been logged out.</div>-->
+<!--<form th:action="@{/login}" method="post">-->
+<!--    <div>-->
+<!--        <input type="text" name="username" placeholder="Username" autofocus="autofocus"/>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <input type="password" name="password" placeholder="Password"/>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <label for="remember">Remember me</label>-->
+<!--        <input id="remember" type="checkbox" name="remember-me" value="true"/>-->
+<!--    </div>-->
+<!--    <input type="submit" value="Log in" />-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+

@@ -1,0 +1,104 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 6
+      author: goosly
+      changes:
+        - insert:
+            tableName: departments
+            columns:
+              - column:
+                  name: department_name
+                  value: Каб. ПРМО Локомотивное депо
+        - insert:
+            tableName: departments
+            columns:
+              - column:
+                  name: department_name
+                  value: М/п Калуга-1
+        - insert:
+            tableName: departments
+            columns:
+              - column:
+                  name: department_name
+                  value: М/п Калуга-2
+        - insert:
+            tableName: departments
+            columns:
+              - column:
+                  name: department_name
+                  value: Каб. ПРМО Брянской механизированной дистанции инфраструктуры
+        - insert:
+            tableName: departments
+            columns:
+              - column:
+                  name: department_name
+                  value: Каб. ПРМО Тихоновой Пустыни
+        - insert:
+            tableName: departments
+            columns:
+              - column:
+                  name: department_name
+                  value: Каб. ПРМО Смоленского центра по обслуживанию пассажиров в пригородном сообщении на ст. Фаянсовая
+
+  - changeSet:
+      id: 8
+      author: goosly
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: password
+                  value: "{bcrypt}$2a$12$OrUM6S5TtRH/OuPQPaMqk.0c32M.MquI7pTJX2y.TUmsYrPsPyEmq"
+
+  - changeSet:
+      id: 9
+      author: goosly
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: role_name
+                  value: ROLE_ADMIN
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: role_name
+                  value: ROLE_USER
+
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: role_id
+                  value: 1
+  - changeSet:
+      id: 10
+      author: goosly
+      changes:
+        - sql:
+            dbms: 'postgresql'
+            sql: insert into departments_operations (department_id, operation_id) 
+              values (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9)
+
+  - changeSet:
+      id: 11
+      author: goosly
+      changes:
+        - sql:
+            dbms: 'postgresql'
+            sql: insert into departments_operations (department_id, operation_id)
+              values (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7), (2, 8), (2, 9),
+              (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (3, 6), (3, 7), (3, 8), (3, 9),
+              (4, 1), (4, 2), (4, 3), (4, 4), (4, 5), (4, 6), (4, 7), (4, 8), (4, 9),
+              (5, 1), (5, 2), (5, 3), (5, 4), (5, 5), (5, 6), (5, 7), (5, 8), (5, 9),
+              (6, 1), (6, 2), (6, 3), (6, 4), (6, 5), (6, 6), (6, 7), (6, 8), (6, 9)

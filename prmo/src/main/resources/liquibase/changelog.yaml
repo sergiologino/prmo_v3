@@ -1,0 +1,267 @@
+databaseChangeLog:
+  - include:
+      file: classpath:liquibase/changelog-insert-data.yaml
+  - include:
+      file: classpath:liquibase/changelog-dailytotal-operationrecord.yaml
+
+  - changeSet:
+      id: 1
+      author: goosly
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: role_pk
+                    nullable: false
+              - column:
+                  name: role_name
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: role_name_uq
+                    nullable: false
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: user_pk
+                    nullable: false
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: username_uq
+                    nullable: false
+              - column:
+                  name: password
+                  type: VARCHAR(512)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_visible
+                  type: boolean
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTAbleName: users_roles
+            constraintName: ur_to_users_fk
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: user_id
+            referencedTableName: users
+        - addForeignKeyConstraint:
+            baseColumnNames: role_id
+            baseTAbleName: users_roles
+            constraintName: ur_to_roles_fk
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: role_id
+            referencedTableName: roles
+
+  - changeSet:
+      id: 2
+      author: goosly
+      changes:
+        - createTable:
+            tableName: operations
+            columns:
+              - column:
+                  name: operation_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: operation_pk
+                    nullable: false
+              - column:
+                  name: operation_name
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: operation_name_uq
+                    nullable: false
+        - createTable:
+            tableName: departments
+            columns:
+              - column:
+                  name: department_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: department_pk
+                    nullable: false
+              - column:
+                  name: department_name
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: department_name_uq
+                    nullable: false
+        - createTable:
+            tableName: departments_operations
+            columns:
+              - column:
+                  name: department_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: operation_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: department_id
+            baseTAbleName: departments_operations
+            constraintName: do_to_departments_fk
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: department_id
+            referencedTableName: departments
+        - addForeignKeyConstraint:
+            baseColumnNames: operation_id
+            baseTAbleName: departments_operations
+            constraintName: do_to_operations_fk
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: operation_id
+            referencedTableName: operations
+
+  - changeSet:
+      id: 3
+      author: goosly
+      changes:
+        - addColumn:
+            tableName: departments
+            columns:
+              - column:
+                  name: is_visible
+                  type: boolean
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+        - addColumn:
+            tableName: operations
+            columns:
+              - column:
+                  name: is_visible
+                  type: boolean
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 4
+      author: goosly
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: department_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: users
+            baseColumnNames: department_id
+            constraintName: user_department_fk
+            deferrable: false
+            initiallyDeferred: false
+            referencedTableName: departments
+            referencedColumnNames: department_id
+
+  - changeSet:
+      id: 5
+      author: goosly
+      changes:
+        - insert:
+            tableName: operations
+            columns:
+              - column:
+                  name: operation_name
+                  value: Предрейсовые медосмотры
+        - insert:
+            tableName: operations
+            columns:
+              - column:
+                  name: operation_name
+                  value: Послерейсовые медосмотры
+        - insert:
+            tableName: operations
+            columns:
+              - column:
+                  name: operation_name
+                  value: Послерейсовые алкометрии
+        - insert:
+            tableName: operations
+            columns:
+              - column:
+                  name: operation_name
+                  value: Предсменные медосмотры
+        - insert:
+            tableName: operations
+            columns:
+              - column:
+                  name: operation_name
+                  value: Послесменные медосмотры
+        - insert:
+            tableName: operations
+            columns:
+              - column:
+                  name: operation_name
+                  value: Послесменные алкометрии
+        - insert:
+            tableName: operations
+            columns:
+              - column:
+                  name: operation_name
+                  value: Отстранения
+        - insert:
+            tableName: operations
+            columns:
+              - column:
+                  name: operation_name
+                  value: Незавершенные измерения
+        - insert:
+            tableName: operations
+            columns:
+              - column:
+                  name: operation_name
+                  value: Повторные измерения
+  - changeSet:
+      id: 7
+      author: goosly
+      changes:
+        - dropNotNullConstraint:
+            columnDataType: BIGINT
+            columnName: department_id
+            tableName: users

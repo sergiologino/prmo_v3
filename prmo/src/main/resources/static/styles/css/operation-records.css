@@ -1,0 +1,146 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    background: #f3f3f3;
+    flex-direction: column;
+    margin: 0;
+}
+
+.main {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    transition: transform 0.2s;
+    width: 500px;
+    text-align: center;
+    overflow-x: auto;
+}
+
+.datepicker {
+    display: inline-block;
+}
+
+/**:disabled {*/
+/*    background-color: dimgrey;*/
+/*    color: linen;*/
+/*    opacity: 1;*/
+/*}*/
+
+.datepicker button {
+    padding: 10px;
+
+}
+
+/*table {*/
+/*    border-radius: 10px;*/
+/*}*/
+/* top-left border-radius */
+/*table tr:first-child th:first-child {*/
+/*    border-top-left-radius: 6px;*/
+/*}*/
+
+/*!* top-right border-radius *!*/
+/*table tr:first-child th:last-child {*/
+/*    border-top-right-radius: 6px;*/
+/*}*/
+
+/*!* bottom-left border-radius *!*/
+/*table tr:last-child td:first-child {*/
+/*    border-bottom-left-radius: 6px;*/
+/*}*/
+
+/*!* bottom-right border-radius *!*/
+/*table tr:last-child td:last-child {*/
+/*    border-bottom-right-radius: 6px;*/
+/*}*/
+
+input[type=date] {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+/*.header {*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    background-color: #f3f3f3;*/
+/*    text-align: center;*/
+/*    padding: 10px 20px;*/
+
+/*}*/
+
+/*.header > div {
+    width:30%;
+    display:inline-block;
+}*/
+img {
+    float: left;
+}
+
+h1, h2, h3 {
+    color: #000000;
+}
+
+#operations {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#operations td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    align-content: center;
+}
+
+/*#customers tr:nth-child(even){background-color: #f2f2f2;}*/
+
+/*#customers tr:hover {background-color: #ddd;}*/
+
+#operations th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #1E80EF;
+    color: white;
+}
+
+#operations input {
+    display: block;
+    width: 100%;
+    font: bold 14px/1.4 sans-serif;
+    border: none;
+}
+
+/*input {*/
+/*    display: block;*/
+/*    width: 100%;*/
+/*    margin-bottom: 15px;*/
+/*    padding: 10px;*/
+/*    box-sizing: border-box;*/
+/*    border: 1px solid #ddd;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+button {
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: #1E80EF; /*#4563d2*/
+    width: 100%;
+    font-size: 16px;
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
