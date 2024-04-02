@@ -1,8 +1,5 @@
 databaseChangeLog:
-  - include:
-      file: classpath:liquibase/changelog-insert-data.yaml
-  - include:
-      file: classpath:liquibase/changelog-dailytotal-operationrecord.yaml
+
 
   - changeSet:
       id: 1
@@ -265,3 +262,9 @@ databaseChangeLog:
             columnDataType: BIGINT
             columnName: department_id
             tableName: users
+
+
+  - include:
+      file: classpath:liquibase/changelog-insert-data.yaml
+  - include:
+      file: classpath:liquibase/changelog-dailytotal-operationrecord.yaml
