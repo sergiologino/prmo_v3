@@ -106,5 +106,14 @@ databaseChangeLog:
             constraintName: dt_date_uq
             tableName: daily_totals
 
+  - changeSet:
+      id: 17
+      author: goosly
+      changes:
+        -  dropUniqueConstraint:
+             constraintName: dt_date_uq
+             tableName: daily_totals
+             uniqueColumns: date
+
 
 

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import ru.prmo.dto.DailyTotalDto
 import ru.prmo.dto.OperationRecordDto
 import ru.prmo.entity.DailyTotalEntity
+import ru.prmo.entity.DepartmentEntity
 import ru.prmo.entity.OperationRecordEntity
 import ru.prmo.exception.OneDatasetPerDateException
 import ru.prmo.repository.DailyTotalRepository
@@ -21,17 +22,18 @@ class DailyTotalService(
 ) {
 
     fun createDailyTotal(dailyTotalDto: DailyTotalDto, principal: Principal) {
-        val dt = getDailyTotalByDate(LocalDate.now())
+        val currentUser = userService.findByUsername(principal.name)
+        val dt = getDailyTotalByDateAndDepartment(LocalDate.now(), currentUser.department!!)
 
         if (dt!!.operationRecords.isNotEmpty()) {
             throw OneDatasetPerDateException()
         }
-        val currentUser = userService.findByUsername(principal.name)
+
         val notNullCounts = dailyTotalDto.operationRecords.mapNotNull { it.count }
 
         val dailyTotal = DailyTotalEntity(
             submittedBy = currentUser.username,
-            department = departmentService.getDepartmentById(currentUser.department!!.departmentId),
+            department = departmentService.getDepartmentById(currentUser.department.departmentId),
             total = notNullCounts.sum(),
         )
 
@@ -50,6 +52,10 @@ class DailyTotalService(
 
     fun getDailyTotalByDate(date: LocalDate): DailyTotalDto? {
         return dailyTotalRepository.findByDate(date)?.toDto() ?: DailyTotalDto()
+    }
+
+    fun getDailyTotalByDateAndDepartment(date: LocalDate, departmentEntity: DepartmentEntity): DailyTotalDto? {
+        return dailyTotalRepository.findByDateAndDepartment(date, departmentEntity)?.toDto() ?: DailyTotalDto()
     }
 
     private fun DailyTotalEntity.toDto(): DailyTotalDto {

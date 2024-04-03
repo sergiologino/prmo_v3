@@ -53,10 +53,10 @@ class AuthController(
             defaultValue = "#{T(java.time.LocalDateTime).now()}"
         ) date: LocalDate, model: Model, principal: Principal
     ): String {
-//        val currentUser = userService.findByUsername(principal.name)
+        val currentUser = userService.findByUsername(principal.name)
 //        val department = departmentService.getDepartmentById(currentUser.department!!.departmentId)
 //        lateinit var dailyTotal: DailyTotalDto
-        var dailyTotal = dailyTotalService.getDailyTotalByDate(date)!!
+        var dailyTotal = dailyTotalService.getDailyTotalByDateAndDepartment(date, currentUser.department!!)!!
         if (date == LocalDate.now() && dailyTotal.operationRecords.isEmpty()) {
             val operations = departmentService.getDepartmentByUser(principal).operations.map { it.operationName }
             dailyTotal = DailyTotalDto()
