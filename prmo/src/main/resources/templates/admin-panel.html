@@ -14,9 +14,67 @@
     <li><a href="#home">Пользователи</a></li>
     <li><a href="#news">Подразделения</a></li>
     <li><a href="#contact">Процедуры</a></li>
-    <li class="right"><a href="#about">Выход</a></li>
+    <li class="right"><a th:href="@{/logout}">Выход</a></li>
 </ul>
 <h1>This is admin panel</h1>
+<div class="main">
+    <form action="#" th:action="@{/admin/panel}" th:object="${report_data}" method="post">
+        <label> Выберите период, за который хотите сформировать отчет</label>
+        <label for="startDate">
+            C:
+        </label>
+        <input type="date"
+               id="startDate" th:field="*{startDate}" required>
+        <label for="endDate">
+            По:
+        </label>
+        <input type="date"
+               id="endDate" th:field="*{endDate}" required>
+        <div th:if="*{fileName}">
+            <label>
+                Скачать отчет:
+            </label>
+            <h1>
+                <a th:href="@{/admin/download}" th:text="*{fileName}"></a>
+            </h1>
+        </div>
 
+
+
+        <div class="wrap">
+            <button type="submit" id="sendDataBtn">
+                Сформировать отчет
+            </button>
+        </div>
+
+<!--        &lt;!&ndash;        <p>Выберите дату: <input type="date" id="dateField" th:field="${form.date}">&ndash;&gt;-->
+<!--        <div th:if="${ not#lists.isEmpty(dts_form)}">-->
+<!--            <table id="daily_totals">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>Дата</th>-->
+<!--                    <th>Подразделение</th>-->
+<!--                    <th>Всего</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr th:each="dt, itemStat : ${dts_form}">-->
+<!--                    <td><input th:field="*{dts_form[__${itemStat.index}__].date}" th:readonly="true">-->
+<!--                    </td>-->
+<!--                    <td><input type="text" th:field="*{operationRecords[__${itemStat.index}__].count}"></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--            <div th:if="${#temporals.format(currentDate, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}" class="wrap">-->
+<!--                <button type="submit" id="sendDataBtn" onclick="successSubmit()">-->
+<!--                    Отправить-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div th:if="${#lists.isEmpty(form.operationRecords)}">-->
+<!--            <h3>Данные отсутствуют</h3>-->
+<!--        </div>-->
+    </form>
+</div>
 </body>
 </html>

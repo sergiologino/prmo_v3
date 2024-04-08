@@ -40,6 +40,7 @@ class SecurityConfig(
                 authorize("test/secured", authenticated)
                 authorize("/user/**", authenticated)
                 authorize("/admin/**", hasRole("ADMIN"))
+                authorize(anyRequest, authenticated)
 
             }
 

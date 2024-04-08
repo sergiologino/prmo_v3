@@ -5,7 +5,7 @@
     <title>ПРМО</title>
     <link th:href="@{/styles/css/operation-records.css}" rel="stylesheet"/>
     <script type="text/javascript" th:src="@{/js/actions.js}" charset="utf-8"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>-->
 </head>
 <body>
 <!--<div class="header">-->
@@ -23,7 +23,7 @@
         <div class="datepicker">
             <button type="submit" onclick="decreaseDay()">&lt;</button>
         </div>
-        <div class="datepicker"><input type="date" id="dateField" th:name="date" th:value="${currentDate}"></div>
+        <div class="datepicker"><input type="date" id="dateField" th:name="date" th:value="${form.date}"></div>
         <div class="datepicker">
             <button type="submit" id="incBtn" onclick="increaseDay()">&gt;</button>
         </div>
@@ -31,7 +31,7 @@
 
 
     <form action="#" th:action="@{/user/workspace}" th:object="${form}" method="post">
-
+        <p th:text="${form.date}"/>
         <!--        <p>Выберите дату: <input type="date" id="dateField" th:field="${form.date}">-->
         <div th:if="${ not#lists.isEmpty(form.operationRecords)}">
             <table id="operations">
@@ -49,8 +49,8 @@
                 </tr>
                 </tbody>
             </table>
-            <div th:if="${#temporals.format(currentDate, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}" class="wrap">
-                <button type="submit" id="sendDataBtn" onclick="successSubmit()">
+            <div class="wrap">
+                <button type="submit" id="sendDataBtn">
                     Отправить
                 </button>
             </div>
@@ -65,3 +65,5 @@
 </script>
 </body>
 </html>
+
+<!--th:if="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd') == form.date}"-->

@@ -14,10 +14,14 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
         cache:
-
-
   liquibase:
     change-log: classpath:liquibase/changelog.yaml
+
+#  web:
+#    resources:
+#      cache:
+#        cachecontrol:
+#          max-age: 365d
 #  thymeleaf:
 #    prefix: classpath:/templates/
 #    cache: false

@@ -1,6 +1,8 @@
 package ru.prmo.service
 
+import org.hibernate.mapping.List
 import org.springframework.stereotype.Service
+import ru.prmo.dto.AdminDailyTotalDto
 import ru.prmo.dto.DailyTotalDto
 import ru.prmo.dto.OperationRecordDto
 import ru.prmo.entity.DailyTotalEntity
@@ -20,6 +22,18 @@ class DailyTotalService(
     private val userService: UserService,
     private val departmentService: DepartmentService
 ) {
+
+    fun getAllDailyTotals():Iterable<AdminDailyTotalDto> {
+        return dailyTotalRepository.findAll().map {
+            AdminDailyTotalDto(
+                date = it.date,
+                departmentName = it.department.departmentName,
+                total = it.total,
+                operationRecords = it.operationRecords.map { opr -> opr.toDto() }
+            )
+        } //тест
+    }
+
 
     fun createDailyTotal(dailyTotalDto: DailyTotalDto, principal: Principal) {
         val currentUser = userService.findByUsername(principal.name)
@@ -50,16 +64,19 @@ class DailyTotalService(
 
     }
 
-    fun getDailyTotalByDate(date: LocalDate): DailyTotalDto? {
-        return dailyTotalRepository.findByDate(date)?.toDto() ?: DailyTotalDto()
-    }
+//    fun getDailyTotalByDate(date: LocalDate): DailyTotalDto? {
+//        return dailyTotalRepository.findByDate(date)?.toDto() ?: DailyTotalDto(
+//            date = date
+//        )
+//    }
 
     fun getDailyTotalByDateAndDepartment(date: LocalDate, departmentEntity: DepartmentEntity): DailyTotalDto? {
-        return dailyTotalRepository.findByDateAndDepartment(date, departmentEntity)?.toDto() ?: DailyTotalDto()
+        return dailyTotalRepository.findByDateAndDepartment(date, departmentEntity)?.toDto() ?: DailyTotalDto(date = date)
     }
 
     private fun DailyTotalEntity.toDto(): DailyTotalDto {
          return DailyTotalDto(
+            date = this.date,
             operationRecords = this.operationRecords.map {
                 OperationRecordDto(
                     operationName = it.operationName,
@@ -73,4 +90,12 @@ class DailyTotalService(
 //            dailyTotal.addRecord(OperationRecordDto(operationName = operation))
 //        }
     }
+
+    fun OperationRecordEntity.toDto(): OperationRecordDto {
+        return OperationRecordDto(
+            operationName = this.operationName,
+            count = this.count
+        )
+    }
+
 }
