@@ -23,13 +23,7 @@ import ru.prmo.utils.findDateColumn
 import ru.prmo.utils.findDepartmentOperationRow
 import ru.prmo.utils.findDepartmentRow
 import java.awt.Color
-import java.io.BufferedInputStream
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
-import java.time.LocalDate
-import kotlin.jvm.Throws
+import java.io.*
 
 
 @Controller
@@ -172,18 +166,33 @@ class AdminController(
     fun downloadReport(response: HttpServletResponse) {
         val file = File("test.xlsx")
         response.contentType = "application/octet-stream"
-        val headerKey: String = "Content-Disposition"
+        val headerKey = "Content-Disposition"
         val headerValue: String = "attachment; filename=" + file.name
         response.setHeader(headerKey, headerValue)
         val outputStream: ServletOutputStream = response.outputStream
-        val inputStream: BufferedInputStream = BufferedInputStream(FileInputStream(file))
-        val buffer: ByteArray = ByteArray(1024)
-        var bytesRead: Int = 0
+        val inputStream = BufferedInputStream(FileInputStream(file))
+        val buffer = ByteArray(1024)
+        var bytesRead = 0
         while(bytesRead != -1) {
             bytesRead = inputStream.read(buffer)
             outputStream.write(buffer, 0, bytesRead)
         }
         inputStream.close()
         outputStream.close()
+    }
+
+    @GetMapping("users")
+    fun getUsers(): String {
+        return "users"
+    }
+
+    @GetMapping("departments")
+    fun getDepartments(): String {
+        return "departments"
+    }
+
+    @GetMapping("operations")
+    fun getOperations(): String {
+        return "operations"
     }
 }

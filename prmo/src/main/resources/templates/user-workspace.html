@@ -8,31 +8,33 @@
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>-->
 </head>
 <body>
-<!--<div class="header">-->
-<!--    <img th:src="@{images/prmo_logo_small.png}" alt="logo_sm" >-->
-<!--    <h2>“РЖД МЕДИЦИНА” г. КАЛУГА ОТЧЕТ О ПРЕДРЕЙСОВЫХ ОСМОТРАХ</h2>-->
-<!--</div>-->
-<!--<div class="header">-->
-<!--    -->
-<!--</div>-->
+
 
 <div class="main">
     <img th:src="@{images/logo/prmo_logo_small.png}" alt="logo_sm">
     <h3>“РЖД МЕДИЦИНА” г. КАЛУГА ОТЧЕТ О ПРЕДРЕЙСОВЫХ ОСМОТРАХ</h3>
-    <form action="#" th:action="@{/user/workspace}">
-        <div class="datepicker">
-            <button type="submit" onclick="decreaseDay()">&lt;</button>
-        </div>
-        <div class="datepicker"><input type="date" id="dateField" th:name="date" th:value="${form.date}"></div>
-        <div class="datepicker">
-            <button type="submit" id="incBtn" onclick="increaseDay()">&gt;</button>
-        </div>
-    </form>
+<!--    <form action="#" th:action="@{/user/workspace}" id="datePickerForm">-->
+<!--        <div class="datepicker">-->
+<!--            <button type="submit" onclick="decreaseDay()">&lt;</button>-->
+<!--        </div>-->
+<!--        <div class="datepicker"><input type="date" id="dateField" th:name="date" th:value="${form.date}" onchange="getDailyTotal()"></div>-->
+<!--        <div class="datepicker">-->
+<!--            <button type="submit" id="incBtn" onclick="increaseDay()">&gt;</button>-->
+<!--        </div>-->
+<!--    </form>-->
 
 
-    <form action="#" th:action="@{/user/workspace}" th:object="${form}" method="post">
-        <p th:text="${form.date}"/>
-        <!--        <p>Выберите дату: <input type="date" id="dateField" th:field="${form.date}">-->
+    <form action="#" th:action="@{/user/workspace}" th:object="${form}" method="post" id="form">
+        <h2 th:text="'Данные на ' + ${#temporals.dayOfWeekName(form.date)} + ', ' + ${#temporals.format(form.date, 'd MMMM yyyy')} + ' года'"></h2>
+
+        <div class="datepicker">
+            <button type="submit" onclick="decreaseDay()" formmethod="get">&lt;</button>
+        </div>
+        <div class="datepicker"><input type="date" id="dateField" th:name="date" th:value="${form.date}" onchange="getDailyTotal()"></div>
+        <div class="datepicker">
+            <button type="submit" id="incBtn" onclick="increaseDay()" formmethod="get">&gt;</button>
+        </div>
+
         <div th:if="${ not#lists.isEmpty(form.operationRecords)}">
             <table id="operations">
                 <thead>
@@ -49,6 +51,8 @@
                 </tr>
                 </tbody>
             </table>
+            <h3 th:text="'Пользователь: ' + ${userData.username}"></h3>
+            <h3 th:text="'Подразделение: ' + ${userData.departmentName}"></h3>
             <div class="wrap">
                 <button type="submit" id="sendDataBtn">
                     Отправить

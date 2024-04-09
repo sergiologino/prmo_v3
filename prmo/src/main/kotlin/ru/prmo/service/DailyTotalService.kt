@@ -1,14 +1,13 @@
 package ru.prmo.service
 
-import org.hibernate.mapping.List
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import ru.prmo.dto.AdminDailyTotalDto
 import ru.prmo.dto.DailyTotalDto
 import ru.prmo.dto.OperationRecordDto
 import ru.prmo.entity.DailyTotalEntity
 import ru.prmo.entity.DepartmentEntity
 import ru.prmo.entity.OperationRecordEntity
-import ru.prmo.exception.OneDatasetPerDateException
 import ru.prmo.repository.DailyTotalRepository
 import ru.prmo.repository.OperationRecordRepository
 import java.security.Principal
@@ -34,18 +33,20 @@ class DailyTotalService(
         } //тест
     }
 
-
+    @Transactional
     fun createDailyTotal(dailyTotalDto: DailyTotalDto, principal: Principal) {
         val currentUser = userService.findByUsername(principal.name)
-        val dt = getDailyTotalByDateAndDepartment(LocalDate.now(), currentUser.department!!)
+        val dt = getDailyTotalByDateAndDepartment(dailyTotalDto.date!!, currentUser.department!!)
 
         if (dt!!.operationRecords.isNotEmpty()) {
-            throw OneDatasetPerDateException()
+//            throw OneDatasetPerDateException()
+            dailyTotalRepository.deleteByDateAndDepartment(dailyTotalDto.date!!, currentUser.department)
         }
 
         val notNullCounts = dailyTotalDto.operationRecords.mapNotNull { it.count }
 
         val dailyTotal = DailyTotalEntity(
+            date = dailyTotalDto.date!!,
             submittedBy = currentUser.username,
             department = departmentService.getDepartmentById(currentUser.department.departmentId),
             total = notNullCounts.sum(),

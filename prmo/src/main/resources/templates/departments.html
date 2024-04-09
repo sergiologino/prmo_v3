@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПРМО</title>
+    <link th:href="@{/styles/css/admin-panel.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/actions.js}" charset="utf-8"></script>
+
+</head>
+<body>
+
+<ul class="topnav">
+    <li><a th:href="@{/admin/panel}">Выгрузка</a></li>
+    <li><a th:href="@{/admin/users}">Пользователи</a></li>
+    <li><a class="active" th:href="@{/admin/departments}">Подразделения</a></li>
+    <li><a th:href="@{/admin/operations}">Процедуры</a></li>
+    <li class="right"><a th:href="@{/logout}">Выход</a></li>
+</ul>
+
+<h1>Список подразделений</h1>
+<div class="main">
+    <div th:replace="~{fragments :: logo}"></div>
+</div>
+</body>
+</html>

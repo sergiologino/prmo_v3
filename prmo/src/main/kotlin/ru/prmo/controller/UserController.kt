@@ -7,6 +7,8 @@ import org.springframework.ui.set
 import org.springframework.web.bind.annotation.*
 import ru.prmo.dto.DailyTotalDto
 import ru.prmo.dto.OperationRecordDto
+import ru.prmo.dto.UserDataDto
+import ru.prmo.exception.BadDayToSendData
 import ru.prmo.service.DailyTotalService
 import ru.prmo.service.DepartmentService
 import ru.prmo.service.UserService
@@ -47,6 +49,10 @@ class UserController(
 //        println(date)
 //        model["currentDate"] = dailyTotal.date
         model["form"] = dailyTotal
+        model["userData"] = UserDataDto(
+            username = currentUser.username,
+            departmentName = currentUser.department.departmentName
+        )
         return "user-workspace"
     }
 
@@ -56,8 +62,14 @@ class UserController(
         model: Model,
         principal: Principal
     ): String {
+        println(dailyTotal.date)
+        println(LocalDate.now().minusDays(1))
+        if (dailyTotal.date!!.isBefore(LocalDate.now().minusDays(1))) {
+            throw BadDayToSendData()
+        } else {
+            dailyTotalService.createDailyTotal(dailyTotal, principal)
+        }
 
-        dailyTotalService.createDailyTotal(dailyTotal, principal)
 
         return "redirect:/user/workspace"
     }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ПРМО</title>
+  <link th:href="@{/styles/css/operation-records.css}" rel="stylesheet"/>
+  <script type="text/javascript" th:src="@{/js/actions.js}" charset="utf-8"></script>
+
+</head>
+<body>
+
+
+<div class="main">
+  <div th:replace="~{fragments :: logo}"></div>
+  <h1>Это страница ошибки</h1>
+  <h3 th:text="${httpStatus}"></h3>
+  <h3 th:text="${apiError.errorCode}"></h3>
+  <h2 th:text="${apiError.description}"></h2>
+  <p> <a th:href="@{/user/workspace}"> Вернуться назад</a></p>
+</div>
+</body>
+</html>

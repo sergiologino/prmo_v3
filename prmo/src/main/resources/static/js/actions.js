@@ -24,20 +24,16 @@ function decreaseDay() {
 }
 
 function getDailyTotal() {
-    // $.ajax({
-    //     url: "/user/{date}",
-    //     data: function () {
-    //         $("#dateField").val()
-    //     },
-    //     success: function () {
-    //         alert("its work")
-    //     }
-    //     }
-    //
-    // )
-    alert("ща-ща, подгружаю...")
+    document.forms["form"].method = "get"
+    document.forms["form"].submit()
 }
 
 function successSubmit() {
     alert("Success!")
 }
+//
+// function setDate() {
+//     let date = document.getElementById("dateField").value
+//     document.getElementById("hiddenDate").valueAsDate = date
+//     console.log(date)
+// }

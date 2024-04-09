@@ -6,18 +6,19 @@
     <title>ПРМО</title>
     <link th:href="@{/styles/css/admin-panel.css}" rel="stylesheet"/>
     <script type="text/javascript" th:src="@{/js/actions.js}" charset="utf-8"></script>
-    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>-->
+
 </head>
 <body>
 <ul class="topnav">
-    <li><a class="active" href="#home">Выгрузка</a></li>
-    <li><a href="#home">Пользователи</a></li>
-    <li><a href="#news">Подразделения</a></li>
-    <li><a href="#contact">Процедуры</a></li>
+    <li><a class="active" th:href="@{/admin/panel}">Выгрузка</a></li>
+    <li><a th:href="@{/admin/users}">Пользователи</a></li>
+    <li><a th:href="@{/admin/departments}">Подразделения</a></li>
+    <li><a th:href="@{/admin/operations}">Процедуры</a></li>
     <li class="right"><a th:href="@{/logout}">Выход</a></li>
 </ul>
 <h1>This is admin panel</h1>
 <div class="main">
+    <div th:replace="~{fragments :: logo}"></div>
     <form action="#" th:action="@{/admin/panel}" th:object="${report_data}" method="post">
         <label> Выберите период, за который хотите сформировать отчет</label>
         <label for="startDate">

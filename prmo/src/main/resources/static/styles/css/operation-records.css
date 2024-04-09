@@ -81,10 +81,18 @@ img {
     float: left;
 }
 
-h1, h2, h3 {
+h1, h3 {
     color: #000000;
 }
+h3 {
+    text-align: left;
+}
 
+h2 {
+    color: #f3f3f3;
+    background-color: #1E80EF;
+    border-radius: 15px;
+}
 #operations {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;

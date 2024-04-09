@@ -1,18 +1,12 @@
 package ru.prmo.controller
 
-import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.stereotype.Controller
-import org.springframework.ui.Model
-import org.springframework.ui.set
-import org.springframework.web.bind.annotation.*
-import ru.prmo.dto.DailyTotalDto
-import ru.prmo.dto.OperationRecordDto
-import ru.prmo.dto.UserRegistrationDto
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import ru.prmo.service.DailyTotalService
 import ru.prmo.service.DepartmentService
 import ru.prmo.service.UserService
 import java.security.Principal
-import java.time.LocalDate
 
 @Controller
 @RequestMapping("/")

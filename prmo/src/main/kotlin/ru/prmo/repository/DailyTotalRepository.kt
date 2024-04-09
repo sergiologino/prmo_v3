@@ -10,4 +10,6 @@ interface DailyTotalRepository: CrudRepository<DailyTotalEntity, Long> {
     fun findByDate(date: LocalDate): DailyTotalEntity?
 
     fun findByDateAndDepartment(date: LocalDate, departmentEntity: DepartmentEntity): DailyTotalEntity?
+
+    fun deleteByDateAndDepartment(date: LocalDate, departmentEntity: DepartmentEntity)
 }

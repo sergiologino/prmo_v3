@@ -18,7 +18,7 @@ class DailyTotalEntity (
     @ManyToOne
     @JoinColumn(name = "department_id")
     val department: DepartmentEntity = DepartmentEntity(),
-    @OneToMany(mappedBy = "dailyTotal")
+    @OneToMany(mappedBy = "dailyTotal", cascade = [CascadeType.ALL])
     val operationRecords: List<OperationRecordEntity> = emptyList(),
     @Column(name = "total", nullable = false)
     val total: Int = 0,
