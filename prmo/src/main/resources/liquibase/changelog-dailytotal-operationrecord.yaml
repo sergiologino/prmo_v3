@@ -29,7 +29,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - createTable:
-            tableName: daily_total
+            tableName: daily_totals
             columns:
               - column:
                   name: total_id
@@ -54,13 +54,18 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     nullable: false
+              - column:
+                  name: total
+                  type: integer
+                  constraints:
+                    nullable: false
 
   - changeSet:
       id: 13
       author: goosly
       changes:
         - addForeignKeyConstraint:
-            baseTableName: daily_total
+            baseTableName: daily_totals
             baseColumnNames: department_id
             constraintName: daily_total_department_fk
             deferrable: false
@@ -73,47 +78,88 @@ databaseChangeLog:
             constraintName: op_record_daily_total_fk
             deferrable: false
             initiallyDeferred: false
-            referencedTableName: daily_total
+            referencedTableName: daily_totals
             referencedColumnNames: total_id
 
-  - changeSet:
-      id: 14
-      author: goosly
-      changes:
-        - renameTable:
-            newTableName: daily_totals
-            oldTableName: daily_total
+  #  - changeSet:
+  #      id: 14
+  #      author: goosly
+  #      changes:
+  #        - renameTable:
+  #            newTableName: daily_totals
+  #            oldTableName: daily_total
+  #
+  #  - changeSet:
+  #      id: 15
+  #      author: goosly
+  #      changes:
+  #        - addColumn:
+  #            tableName: daily_totals
+  #            columns:
+  #              - column:
+  #                  name: total
+  #                  type: integer
+  #                  constraints:
+  #                    nullable: false
+  #
+  #  - changeSet:
+  #      id: 16
+  #      author: goosly
+  #      changes:
+  #        - addUniqueConstraint:
+  #            columnNames: date
+  #            constraintName: dt_date_uq
+  #            tableName: daily_totals
+  #
+  #  - changeSet:
+  #      id: 17
+  #      author: goosly
+  #      changes:
+  #        -  dropUniqueConstraint:
+  #             constraintName: dt_date_uq
+  #             tableName: daily_totals
+  #             uniqueColumns: date
+
+
 
   - changeSet:
-      id: 15
+      id: create-string-operation-records-table
       author: goosly
       changes:
-        - addColumn:
-            tableName: daily_totals
+        - createTable:
+            tableName: string_operation_records
             columns:
               - column:
-                  name: total
-                  type: integer
+                  name: record_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: str_op_record_pk
+                    nullable: false
+              - column:
+                  name: operation_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value
+                  type: VARCHAR(255)
+              - column:
+                  name: daily_total_id
+                  type: BIGINT
                   constraints:
                     nullable: false
 
   - changeSet:
-      id: 16
+      id: fk-str_op_rec-to-daily-total
       author: goosly
       changes:
-        - addUniqueConstraint:
-            columnNames: date
-            constraintName: dt_date_uq
-            tableName: daily_totals
-
-  - changeSet:
-      id: 17
-      author: goosly
-      changes:
-        -  dropUniqueConstraint:
-             constraintName: dt_date_uq
-             tableName: daily_totals
-             uniqueColumns: date
-
-
-
+        - addForeignKeyConstraint:
+            baseTableName: string_operation_records
+            baseColumnNames: daily_total_id
+            constraintName: str_op_record_daily_total_fk
+            deferrable: false
+            initiallyDeferred: false
+            referencedTableName: daily_totals
+            referencedColumnNames: total_id

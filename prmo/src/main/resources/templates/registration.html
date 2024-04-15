@@ -1,26 +1,39 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
     <title>ПРМО</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <link th:href="@{/styles/css/login.css}" rel="stylesheet"/>
 </head>
 <body>
 
-<h2>Добавление нового пользователя</h2>
 
-<div>
+<div class="main">
 
-    <form method="post" th:action="@{/admin/registration}" th:object="${user}">
-        <input id="username" required type="text" th:field="*{username}"/>
-        <input id="password"  required type="text" th:field="*{password}"/>
-        <select th:field="*{department}">
+    <div th:replace="~{fragments :: logo}"></div>
+    <h2>Добавление нового пользователя</h2>
+    <form method="post" th:action="@{/admin/registration}" th:object="${user}" id="regForm">
+        <label for="username">
+            Имя пользователя:
+        </label>
+        <input id="username" required type="text" th:field="*{username}" placeholder="Введите имя пользователя"/>
+        <label for="password">
+            Пароль:
+        </label>
+        <input id="password" required type="text" th:field="*{password}" placeholder="Введите пароль"/>
+        <label for="depSelect">
+            Подразделение:
+        </label>
+        <select th:field="*{department}" id="depSelect">
             <option th:each="department: ${departments}" th:value="${department}" th:text="${department}"></option>
         </select>
-        <input type="submit" value="Create User">
+        <div class="wrap">
+            <button type="submit">
+                Создать пользователя
+            </button>
+        </div>
     </form>
-</div>
-
-
 </div>
 
 </body>

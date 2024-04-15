@@ -5,35 +5,31 @@
     <title>ПРМО</title>
     <link th:href="@{/styles/css/operation-records.css}" rel="stylesheet"/>
     <script type="text/javascript" th:src="@{/js/actions.js}" charset="utf-8"></script>
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>-->
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>-->
 </head>
 <body>
 
 
 <div class="main">
     <img th:src="@{images/logo/prmo_logo_small.png}" alt="logo_sm">
-    <h3>“РЖД МЕДИЦИНА” г. КАЛУГА ОТЧЕТ О ПРЕДРЕЙСОВЫХ ОСМОТРАХ</h3>
-<!--    <form action="#" th:action="@{/user/workspace}" id="datePickerForm">-->
-<!--        <div class="datepicker">-->
-<!--            <button type="submit" onclick="decreaseDay()">&lt;</button>-->
-<!--        </div>-->
-<!--        <div class="datepicker"><input type="date" id="dateField" th:name="date" th:value="${form.date}" onchange="getDailyTotal()"></div>-->
-<!--        <div class="datepicker">-->
-<!--            <button type="submit" id="incBtn" onclick="increaseDay()">&gt;</button>-->
-<!--        </div>-->
-<!--    </form>-->
+    <h3>“РЖД МЕДИЦИНА” г. КАЛУГА</h3>
+    <h3>ОТЧЕТ О ПРЕДРЕЙСОВЫХ ОСМОТРАХ</h3>
+    <form action="#" th:action="@{/user/workspace}" id="datePickerForm">
+        <div class="datepicker">
+            <button type="submit" onclick="decreaseDay()" formmethod="get">&lt;</button>
+        </div>
+        <div class="datepicker"><input type="date" id="dateField" th:name="date" th:value="${form.date}"
+                                       onchange="getDailyTotal()"></div>
+        <div class="datepicker">
+            <button type="submit" id="incBtn" onclick="increaseDay()" formmethod="get">&gt;</button>
+        </div>
+    </form>
 
 
     <form action="#" th:action="@{/user/workspace}" th:object="${form}" method="post" id="form">
         <h2 th:text="'Данные на ' + ${#temporals.dayOfWeekName(form.date)} + ', ' + ${#temporals.format(form.date, 'd MMMM yyyy')} + ' года'"></h2>
+        <input th:field="${form.date}" hidden>
 
-        <div class="datepicker">
-            <button type="submit" onclick="decreaseDay()" formmethod="get">&lt;</button>
-        </div>
-        <div class="datepicker"><input type="date" id="dateField" th:name="date" th:value="${form.date}" onchange="getDailyTotal()"></div>
-        <div class="datepicker">
-            <button type="submit" id="incBtn" onclick="increaseDay()" formmethod="get">&gt;</button>
-        </div>
 
         <div th:if="${ not#lists.isEmpty(form.operationRecords)}">
             <table id="operations">
@@ -45,9 +41,17 @@
                 </thead>
                 <tbody>
                 <tr th:each="record, itemStat : ${form.operationRecords}">
-                    <td><input th:field="*{operationRecords[__${itemStat.index}__].operationName}" th:readonly="true">
+                    <td><textarea th:field="*{operationRecords[__${itemStat.index}__].operationName}"
+                                  th:readonly="true"></textarea>
                     </td>
                     <td><input type="text" th:field="*{operationRecords[__${itemStat.index}__].count}"></td>
+                </tr>
+                <tr th:each="record, itemStat : ${form.stringOperationRecords}">
+                    <td class="str_op"><textarea
+                            th:field="*{stringOperationRecords[__${itemStat.index}__].operationName}"
+                            th:readonly="true"></textarea>
+                    </td>
+                    <td><input type="text" th:field="*{stringOperationRecords[__${itemStat.index}__].value}"></td>
                 </tr>
                 </tbody>
             </table>
@@ -59,9 +63,9 @@
                 </button>
             </div>
         </div>
-        <div th:if="${#lists.isEmpty(form.operationRecords)}">
-            <h3>Данные отсутствуют</h3>
-        </div>
+        <!--        <div th:if="${#lists.isEmpty(form.operationRecords)}">-->
+        <!--            <h3>Данные отсутствуют</h3>-->
+        <!--        </div>-->
     </form>
 </div>
 <script>

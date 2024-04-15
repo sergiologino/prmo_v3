@@ -197,63 +197,23 @@ databaseChangeLog:
             referencedColumnNames: department_id
 
   - changeSet:
-      id: 5
+      id: insert-into-operations
       author: goosly
       changes:
-        - insert:
-            tableName: operations
-            columns:
-              - column:
-                  name: operation_name
-                  value: Предрейсовые медосмотры
-        - insert:
-            tableName: operations
-            columns:
-              - column:
-                  name: operation_name
-                  value: Послерейсовые медосмотры
-        - insert:
-            tableName: operations
-            columns:
-              - column:
-                  name: operation_name
-                  value: Послерейсовые алкометрии
-        - insert:
-            tableName: operations
-            columns:
-              - column:
-                  name: operation_name
-                  value: Предсменные медосмотры
-        - insert:
-            tableName: operations
-            columns:
-              - column:
-                  name: operation_name
-                  value: Послесменные медосмотры
-        - insert:
-            tableName: operations
-            columns:
-              - column:
-                  name: operation_name
-                  value: Послесменные алкометрии
-        - insert:
-            tableName: operations
-            columns:
-              - column:
-                  name: operation_name
-                  value: Отстранения
-        - insert:
-            tableName: operations
-            columns:
-              - column:
-                  name: operation_name
-                  value: Незавершенные измерения
-        - insert:
-            tableName: operations
-            columns:
-              - column:
-                  name: operation_name
-                  value: Повторные измерения
+        - sql:
+            dbms: 'postgresql'
+            sql: insert into operations (operation_name)
+              values ('Предрейсовые м/о (только водители РЖД)'),
+              ('Послерейсовые м/о (только водители РЖД)'),
+              ('Предсменные м/о (все ЖД)'), ('Послесменные м/о (все ЖД)'),
+              ('Проблемы передачи данных из АСПО в АСУТ (да/нет)'),
+              ('Предрейсовые (договорные)'), ('Послерейсовые (договорные)'),
+              ('Предсменные (договорные)'),('Послесменные (договорные)'),
+              ('Отстранения (только РЖД предрейсовые, предсменные)'),
+              ('Выявлены с признаками опьянения (только РЖД послерейсовые, послесменные)'),
+              ('Заболеваний'), ('Направлены к цеховому терапевту'), ('Незавершенные измерения'),
+              ('Повторные измерения'), ('ПРОВЕРКИ'), ('Замечания (да/нет)')
+
   - changeSet:
       id: 7
       author: goosly

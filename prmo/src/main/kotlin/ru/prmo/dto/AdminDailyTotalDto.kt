@@ -6,5 +6,6 @@ data class AdminDailyTotalDto(
     var date: LocalDate,
     var departmentName: String,
     var total: Int,
-    var operationRecords: List<OperationRecordDto>
+    var operationRecords: List<OperationRecordDto>,
+    var stringOperationRecords: List<StringOperationRecordDto>
 )

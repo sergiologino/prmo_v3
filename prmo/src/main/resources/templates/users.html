@@ -21,6 +21,24 @@
 <h1>Список пользователей</h1>
 <div class="main">
     <div th:replace="~{fragments :: logo}"></div>
+    <p><a th:href="@{/admin/registration}"> Создать нового пользователя</a></p>
+
+    <table id="users">
+        <thead>
+        <tr>
+            <th>Сотрудник (Пользователь)</th>
+            <th>Подразделение</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user, itemStat : ${usersForm}">
+            <td th:text="${user.username}">
+            </td>
+            <td th:text="${user.departmentName}"></td>
+        </tr>
+
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.ui.set
 import org.springframework.web.bind.annotation.*
 import ru.prmo.dto.DailyTotalDto
 import ru.prmo.dto.OperationRecordDto
+import ru.prmo.dto.StringOperationRecordDto
 import ru.prmo.dto.UserDataDto
 import ru.prmo.exception.BadDayToSendData
 import ru.prmo.service.DailyTotalService
@@ -28,21 +29,20 @@ class UserController(
         @RequestParam(
             value = "date",
             name = "date",
-            defaultValue = "#{T(java.time.LocalDateTime).now()}"
+            defaultValue = "#{T(java.time.LocalDate).now().minusDays(1)}"
         ) @DateTimeFormat(pattern = "yyyy-MM-dd") date: LocalDate, model: Model, principal: Principal
     ): String {
         val currentUser = userService.findByUsername(principal.name)
-//        val department = departmentService.getDepartmentById(currentUser.department!!.departmentId)
-//        lateinit var dailyTotal: DailyTotalDto
-        val dailyTotal = dailyTotalService.getDailyTotalByDateAndDepartment(date, currentUser.department!!)!!
-        if (date == LocalDate.now() && dailyTotal.operationRecords.isEmpty()) {
-            val operations = departmentService.getDepartmentByUser(principal).operations.map { it.operationName }
-//            dailyTotal = DailyTotalDto(
-//                date = date.toString()
-//            )
-            for (operation in operations) {
-                dailyTotal.addRecord(OperationRecordDto(operationName = operation))
 
+        val dailyTotal = dailyTotalService.getDailyTotalByDateAndDepartment(date, currentUser!!.department!!)!!
+        if (dailyTotal.operationRecords.isEmpty()) {
+            val operations = departmentService.getDepartmentByUser(principal).operations.map { it.operationName }
+            for (operation in operations) {
+                if (operation.contains("да/нет")) {
+                    dailyTotal.addStringRecord(StringOperationRecordDto(operationName = operation))
+                } else {
+                    dailyTotal.addRecord(OperationRecordDto(operationName = operation))
+                }
             }
         }
 
@@ -51,7 +51,7 @@ class UserController(
         model["form"] = dailyTotal
         model["userData"] = UserDataDto(
             username = currentUser.username,
-            departmentName = currentUser.department.departmentName
+            departmentName = currentUser.department!!.departmentName
         )
         return "user-workspace"
     }
@@ -63,14 +63,13 @@ class UserController(
         principal: Principal
     ): String {
         println(dailyTotal.date)
-        println(LocalDate.now().minusDays(1))
         if (dailyTotal.date!!.isBefore(LocalDate.now().minusDays(1))) {
             throw BadDayToSendData()
         } else {
             dailyTotalService.createDailyTotal(dailyTotal, principal)
         }
 
-
-        return "redirect:/user/workspace"
+        val currentDate = dailyTotal.date
+        return "redirect:/user/workspace?date=$currentDate"
     }
 }

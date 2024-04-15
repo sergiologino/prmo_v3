@@ -9,10 +9,12 @@ ul.topnav {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color:#333;
+    background-color: #333;
 }
 
-ul.topnav li {float: left;}
+ul.topnav li {
+    float: left;
+}
 
 ul.topnav li a {
     display: block;
@@ -22,15 +24,23 @@ ul.topnav li a {
     text-decoration: none;
 }
 
-ul.topnav li a:hover:not(.active) {background-color: #111;}
+ul.topnav li a:hover:not(.active) {
+    background-color: #111;
+}
 
-ul.topnav li a.active {background-color: #1E80EF;}
+ul.topnav li a.active {
+    background-color: #1E80EF;
+}
 
-ul.topnav li.right {float: right;}
+ul.topnav li.right {
+    float: right;
+}
 
 @media screen and (max-width: 600px) {
     ul.topnav li.right,
-    ul.topnav li {float: none;}
+    ul.topnav li {
+        float: none;
+    }
 }
 
 body {
@@ -51,7 +61,7 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     padding: 10px 20px;
     transition: transform 0.2s;
-    width: 500px;
+    width: 900px;
     text-align: center;
 }
 
@@ -82,7 +92,8 @@ input {
 
 input[type=checkbox] {
     position: relative;
-    bottom: 25px; left: 150px;
+    bottom: 25px;
+    left: 150px;
     width: 20px;
     height: 20px;
     cursor: pointer;

@@ -24,7 +24,7 @@ class AuthController(
     @GetMapping("/")
     fun redirect(principal: Principal): String {
         val currentUser = userService.findByUsername(principal.name)
-        val roles = currentUser.roles.map { it.roleName }
+        val roles = currentUser!!.roles.map { it.roleName }
         if (roles.contains("ROLE_ADMIN")) {
             return "redirect:/admin/panel"
         }

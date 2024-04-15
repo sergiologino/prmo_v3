@@ -5,7 +5,7 @@ import java.time.LocalDate
 
 @Entity
 @Table(name = "daily_totals")
-class DailyTotalEntity (
+class DailyTotalEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "total_id")
@@ -20,6 +20,8 @@ class DailyTotalEntity (
     val department: DepartmentEntity = DepartmentEntity(),
     @OneToMany(mappedBy = "dailyTotal", cascade = [CascadeType.ALL])
     val operationRecords: List<OperationRecordEntity> = emptyList(),
+    @OneToMany(mappedBy = "dailyTotal", cascade = [CascadeType.ALL])
+    val stringOperationRecords: List<StringOperationRecordEntity> = emptyList(),
     @Column(name = "total", nullable = false)
     val total: Int = 0,
-        )
+)

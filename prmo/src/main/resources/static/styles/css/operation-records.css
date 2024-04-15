@@ -16,7 +16,7 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     padding: 10px 20px;
     transition: transform 0.2s;
-    width: 500px;
+    width: 900px;
     text-align: center;
     overflow-x: auto;
 }
@@ -33,6 +33,7 @@ body {
 
 .datepicker button {
     padding: 10px;
+    font-size: xxx-large;
 
 }
 
@@ -62,8 +63,9 @@ body {
 input[type=date] {
     margin-top: 15px;
     margin-bottom: 15px;
-    font-size: 16px;
+    font-size: xxx-large;
 }
+
 /*.header {*/
 /*    align-items: center;*/
 /*    justify-content: center;*/
@@ -83,8 +85,10 @@ img {
 
 h1, h3 {
     color: #000000;
+    text-align: center;
 }
-h3 {
+
+#form h3 {
     text-align: left;
 }
 
@@ -92,17 +96,24 @@ h2 {
     color: #f3f3f3;
     background-color: #1E80EF;
     border-radius: 15px;
+    font-size: xxx-large;
 }
+
+.str_op textarea {
+    color: red;
+}
+
 #operations {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
 
-#operations td, #customers th {
+#operations td, #operations th {
     border: 1px solid #ddd;
     padding: 8px;
     align-content: center;
+    width: 75%;
 }
 
 /*#customers tr:nth-child(even){background-color: #f2f2f2;}*/
@@ -115,6 +126,7 @@ h2 {
     text-align: center;
     background-color: #1E80EF;
     color: white;
+    font-size: x-large;
 }
 
 #operations input {
@@ -122,6 +134,15 @@ h2 {
     width: 100%;
     font: bold 14px/1.4 sans-serif;
     border: none;
+    text-align: center;
+}
+
+#operations textarea {
+    display: block;
+    width: 100%;
+    font: bold 14px/1.4 sans-serif;
+    border: none;
+    resize: none;
 }
 
 /*input {*/
@@ -144,7 +165,7 @@ button {
     cursor: pointer;
     background-color: #1E80EF; /*#4563d2*/
     width: 100%;
-    font-size: 16px;
+    font-size: xxx-large;
 }
 
 .wrap {

@@ -23,9 +23,10 @@ class DepartmentService(
     fun getDepartmentById(departmentId: Long): DepartmentEntity {
         return departmentRepository.findByDepartmentId(departmentId)
     }
+
     @Transactional
     fun getDepartmentByUser(principal: Principal): DepartmentEntity {
         val currentUser = userService.findByUsername(principal.name)
-        return getDepartmentById(currentUser.department!!.departmentId)
+        return getDepartmentById(currentUser!!.department!!.departmentId)
     }
 }

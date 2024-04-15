@@ -19,15 +19,16 @@ class UserService(
     private val roleRepository: RoleRepository,
     private val passwordEncoder: PasswordEncoder,
     private val departmentService: DepartmentService
-): UserDetailsService {
+) : UserDetailsService {
 
-    fun findByUsername(username: String): UserEntity {
+    fun findByUsername(username: String): UserEntity? {
         return userRepository.findByUsername(username)
     }
+
     @Throws(UsernameNotFoundException::class)
     @Transactional
     override fun loadUserByUsername(username: String): UserDetails {
-        val user: UserEntity = findByUsername(username)
+        val user: UserEntity = findByUsername(username)!!
 
         return User(
             user.username,
@@ -44,5 +45,9 @@ class UserService(
             roles = listOf(roleRepository.findByRoleName("ROLE_USER"))
         )
         userRepository.save(newUser)
+    }
+
+    fun findAll(): Iterable<UserEntity> {
+        return userRepository.findAll()
     }
 }
