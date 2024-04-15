@@ -301,7 +301,10 @@ class AdminController(
         val formattedStartDate = startDate.format(formatter)
         val formattedEndDate = endDate.format(formatter)
         val filePath = "reports\\Report $formattedStartDate - $formattedEndDate.xlsx"
-
+        val newDir = File(".", "reports")
+        if (!newDir.exists()) {
+            newDir.mkdir()
+        }
         FileOutputStream(filePath).use { outputStream -> workbook.write(outputStream) }
         workbook.close()
 

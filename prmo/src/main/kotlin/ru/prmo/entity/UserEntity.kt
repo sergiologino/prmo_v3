@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "users")
-class UserEntity (
+class UserEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -25,4 +25,4 @@ class UserEntity (
         inverseJoinColumns = [JoinColumn(name = "role_id")]
     )
     val roles: List<RoleEntity> = emptyList()
-        )
+)

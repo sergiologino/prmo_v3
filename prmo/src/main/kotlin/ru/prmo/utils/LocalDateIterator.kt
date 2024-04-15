@@ -6,7 +6,7 @@ class LocalDateIterator(
     startDate: LocalDate,
     private val endDateInclusive: LocalDate,
     private val stepDays: Long
-): Iterator<LocalDate> {
+) : Iterator<LocalDate> {
 
     private var currentDate = startDate
     override fun hasNext(): Boolean =

@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "operation_records")
-class OperationRecordEntity (
+class OperationRecordEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "record_id")
@@ -16,4 +16,4 @@ class OperationRecordEntity (
     @ManyToOne
     @JoinColumn(name = "daily_total_id")
     val dailyTotal: DailyTotalEntity = DailyTotalEntity()
-        )
+)

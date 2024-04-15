@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class PrmoApplication
 
 fun main(args: Array<String>) {
-	runApplication<PrmoApplication>(*args)
+    runApplication<PrmoApplication>(*args)
 }

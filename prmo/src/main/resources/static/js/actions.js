@@ -31,6 +31,7 @@ function getDailyTotal() {
 function successSubmit() {
     alert("Success!")
 }
+
 //
 // function setDate() {
 //     let date = document.getElementById("dateField").value

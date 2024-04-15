@@ -5,7 +5,7 @@ import ru.prmo.entity.DailyTotalEntity
 import ru.prmo.entity.DepartmentEntity
 import java.time.LocalDate
 
-interface DailyTotalRepository: CrudRepository<DailyTotalEntity, Long> {
+interface DailyTotalRepository : CrudRepository<DailyTotalEntity, Long> {
 
     fun findByDate(date: LocalDate): DailyTotalEntity?
 

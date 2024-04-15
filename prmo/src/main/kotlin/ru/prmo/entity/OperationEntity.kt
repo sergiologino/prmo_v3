@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "operations")
-class OperationEntity (
+class OperationEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "operation_id")
@@ -13,4 +13,4 @@ class OperationEntity (
     val operationName: String = "",
     @Column(name = "is_visible", nullable = false)
     val isVisible: Boolean = true
-        )
+)

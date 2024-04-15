@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "departments")
-class DepartmentEntity (
+class DepartmentEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "department_id")
@@ -24,4 +24,4 @@ class DepartmentEntity (
     val operations: List<OperationEntity> = emptyList(),
     @OneToMany(mappedBy = "department")
     val dailyTotals: List<DailyTotalEntity> = emptyList()
-        )
+)

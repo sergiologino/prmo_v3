@@ -16,11 +16,14 @@
     <h3>“РЖД МЕДИЦИНА” г. КАЛУГА ОТЧЕТ О ПРЕДРЕЙСОВЫХ ОСМОТРАХ</h3>
 
 
-
     <form action="#" th:action="@{/user/workspace}" th:object="${form}" method="post">
-        <div class="datepicker"><button type="button" onclick="decreaseDay()">&lt;</button></div>
+        <div class="datepicker">
+            <button type="button" onclick="decreaseDay()">&lt;</button>
+        </div>
         <div class="datepicker"><input type="date" id="dateField" th:field="${form.date}"></div>
-        <div class="datepicker"><button type="button" id="incBtn" onclick="increaseDay()">&gt;</button></div>
+        <div class="datepicker">
+            <button type="button" id="incBtn" onclick="increaseDay()">&gt;</button>
+        </div>
         <!--        <p>Выберите дату: <input type="date" id="dateField" th:field="${form.date}">-->
         <div th:if="${ not#lists.isEmpty(form.operationRecords)}">
             <table id="customers">
@@ -31,7 +34,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="record, itemStat : ${form.operationRecords}" >
+                <tr th:each="record, itemStat : ${form.operationRecords}">
                     <td><input th:field="*{operationRecords[__${itemStat.index}__].operationName}" th:readonly="true">
                     </td>
                     <td><input type="text" th:field="*{operationRecords[__${itemStat.index}__].count}"></td>
@@ -50,26 +53,26 @@
     </form>
 </div>
 
-    <script>
-        document.getElementById("dateField").valueAsDate = new Date(Date.now());
-        document.getElementById("dateField").max = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
-    </script>
-    <script>
-        function decreaseDay() {
-            let tmp = document.getElementById("dateField").value
-            let newDate = Date.parse(tmp) - 86400000
+<script>
+    document.getElementById("dateField").valueAsDate = new Date(Date.now());
+    document.getElementById("dateField").max = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+</script>
+<script>
+    function decreaseDay() {
+        let tmp = document.getElementById("dateField").value
+        let newDate = Date.parse(tmp) - 86400000
+        document.getElementById("dateField").valueAsDate = new Date(newDate)
+    }
+</script>
+<script>
+    function increaseDay() {
+        let tmp = document.getElementById("dateField").value
+        let newDate = Date.parse(tmp)
+        if (new Date(Date.now()) > newDate) {
+            newDate += 86400000
             document.getElementById("dateField").valueAsDate = new Date(newDate)
         }
-    </script>
-    <script>
-        function increaseDay() {
-            let tmp = document.getElementById("dateField").value
-            let newDate = Date.parse(tmp)
-            if (new Date(Date.now()) > newDate) {
-                newDate += 86400000
-                document.getElementById("dateField").valueAsDate = new Date(newDate)
-            }
-        }
-    </script>
+    }
+</script>
 </body>
 </html>

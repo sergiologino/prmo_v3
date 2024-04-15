@@ -7,7 +7,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component
 
 @Component
-class UrlAuthenticationSuccessHandler: AuthenticationSuccessHandler {
+class UrlAuthenticationSuccessHandler : AuthenticationSuccessHandler {
     override fun onAuthenticationSuccess(
         request: HttpServletRequest?,
         response: HttpServletResponse?,

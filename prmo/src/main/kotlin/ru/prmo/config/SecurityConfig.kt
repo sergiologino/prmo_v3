@@ -19,12 +19,12 @@ class SecurityConfig(
     private val userService: UserService,
     private val passwordEncoder: PasswordEncoder,
 
-) {
+    ) {
     @Autowired
-    lateinit var  urlAuthenticationSuccessHandler: UrlAuthenticationSuccessHandler
+    lateinit var urlAuthenticationSuccessHandler: UrlAuthenticationSuccessHandler
 
     @Bean
-    fun filterChain(http: HttpSecurity, ): SecurityFilterChain {
+    fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http {
             csrf {
                 disable()  //сделать кастомный логаут
@@ -54,7 +54,7 @@ class SecurityConfig(
                 permitAll()
 
             }
-            rememberMe {  }
+            rememberMe { }
             httpBasic { }
         }
         return http.build()
