@@ -62,7 +62,7 @@ class UserController(
         model: Model,
         principal: Principal
     ): String {
-        println(dailyTotal.date)
+
         if (dailyTotal.date!!.isBefore(LocalDate.now().minusDays(1))) {
             throw BadDayToSendData()
         } else {

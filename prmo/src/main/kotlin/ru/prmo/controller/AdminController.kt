@@ -24,6 +24,7 @@ import ru.prmo.utils.findDateColumn
 import ru.prmo.utils.findDepartmentOperationRow
 import ru.prmo.utils.findDepartmentRow
 import java.io.*
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 
@@ -99,8 +100,16 @@ class AdminController(
 //         Диапазон дат
 //        val startDate = LocalDate.of(2024, 4, 1)
 //        val endDate = LocalDate.of(2024, 4, 8)
-        val startDate = reportDataDto.startDate!!
-        val endDate = reportDataDto.endDate!!
+        lateinit var startDate: LocalDate
+        lateinit var endDate: LocalDate
+        if (reportDataDto.endDate!!.isBefore(reportDataDto.startDate!!)) {
+            startDate = reportDataDto.endDate
+            endDate = reportDataDto.startDate
+        } else {
+            startDate = reportDataDto.startDate
+            endDate = reportDataDto.endDate
+        }
+
         var column = 1
         var date = startDate
         while (date.isBefore(endDate.plusDays(1))) {
@@ -297,7 +306,7 @@ class AdminController(
         )
         pt.applyBorders(sheet)
 
-        val formatter = DateTimeFormatter.ofPattern("d.MM.yy")
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yy")
         val formattedStartDate = startDate.format(formatter)
         val formattedEndDate = endDate.format(formatter)
         val filePath = "reports\\Report $formattedStartDate - $formattedEndDate.xlsx"

@@ -135,6 +135,7 @@ h2 {
     font: bold 14px/1.4 sans-serif;
     border: none;
     text-align: center;
+    font-size: x-large;
 }
 
 #operations textarea {
@@ -143,6 +144,8 @@ h2 {
     font: bold 14px/1.4 sans-serif;
     border: none;
     resize: none;
+    align-content: center;
+    font-size: x-large;
 }
 
 /*input {*/
