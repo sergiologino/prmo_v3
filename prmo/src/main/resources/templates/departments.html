@@ -21,6 +21,9 @@
 <h1>Список подразделений</h1>
 <div class="main">
     <div th:replace="~{fragments :: logo}"></div>
+    <ul id="dataList">
+        <li th:each="department : ${departments}" th:text="${department.departmentName}"></li>
+    </ul>
 </div>
 </body>
 </html>

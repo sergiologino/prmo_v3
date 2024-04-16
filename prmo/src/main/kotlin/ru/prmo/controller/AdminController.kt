@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.*
+import ru.prmo.dto.DepartmentDto
 import ru.prmo.dto.ReportDataDto
 import ru.prmo.dto.UserDataDto
 import ru.prmo.dto.UserRegistrationDto
@@ -350,18 +351,23 @@ class AdminController(
 
     @GetMapping("users")
     fun getUsers(model: Model): String {
-        val allUser = userService.findAll().map {
+        val allUsers = userService.findAll().map {
             UserDataDto(
                 username = it.username,
                 departmentName = it.department?.departmentName ?: ""
             )
         }
-        model["usersForm"] = allUser
+        model["usersForm"] = allUsers
         return "users"
     }
 
     @GetMapping("departments")
-    fun getDepartments(): String {
+    fun getDepartments(model: Model): String {
+        model["departments"] = departmentService.getAllDepartments().map {
+            DepartmentDto(
+                departmentName = it.departmentName
+            )
+        }
         return "departments"
     }
 
