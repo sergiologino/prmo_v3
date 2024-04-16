@@ -102,12 +102,15 @@ class AdminController(
 //        val endDate = LocalDate.of(2024, 4, 8)
         lateinit var startDate: LocalDate
         lateinit var endDate: LocalDate
-        if (reportDataDto.endDate!!.isBefore(reportDataDto.startDate!!)) {
-            startDate = reportDataDto.endDate
-            endDate = reportDataDto.startDate
+        val dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val startDateFromString = LocalDate.parse(reportDataDto.startDate, dtFormatter)
+        val endDateFromString = LocalDate.parse(reportDataDto.endDate, dtFormatter)
+        if (reportDataDto.endDate < reportDataDto.startDate) {
+            startDate = endDateFromString
+            endDate = startDateFromString
         } else {
-            startDate = reportDataDto.startDate
-            endDate = reportDataDto.endDate
+            startDate = startDateFromString
+            endDate = endDateFromString
         }
 
         var column = 1
