@@ -13,13 +13,11 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.*
-import ru.prmo.dto.DepartmentDto
-import ru.prmo.dto.ReportDataDto
-import ru.prmo.dto.UserDataDto
-import ru.prmo.dto.UserRegistrationDto
+import ru.prmo.dto.*
 import ru.prmo.exception.UserAlreadyExistsException
 import ru.prmo.service.DailyTotalService
 import ru.prmo.service.DepartmentService
+import ru.prmo.service.OperationService
 import ru.prmo.service.UserService
 import ru.prmo.utils.findDateColumn
 import ru.prmo.utils.findDepartmentOperationRow
@@ -34,7 +32,8 @@ import java.time.format.DateTimeFormatter
 class AdminController(
     private val departmentService: DepartmentService,
     private val userService: UserService,
-    private val dailyTotalService: DailyTotalService
+    private val dailyTotalService: DailyTotalService,
+    private val operationService: OperationService
 ) {
 
     @GetMapping("registration")
@@ -372,7 +371,12 @@ class AdminController(
     }
 
     @GetMapping("operations")
-    fun getOperations(): String {
+    fun getOperations(model: Model): String {
+        model["operations"] = operationService.getAllOperations().map {
+            OperationDto(
+                operationName = it.operationName
+            )
+        }
         return "operations"
     }
 }

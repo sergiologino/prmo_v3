@@ -21,6 +21,9 @@
 <h1>Список процедур</h1>
 <div class="main">
     <div th:replace="~{fragments :: logo}"></div>
+    <ul id="dataList">
+        <li th:each="operation : ${operations}" th:text="${operation.operationName}"></li>
+    </ul>
 </div>
 </body>
 </html>
