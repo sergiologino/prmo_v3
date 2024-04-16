@@ -123,6 +123,8 @@ class AdminController(
             column++
             date = date.plusDays(1)
         }
+        
+        sheet.createFreezePane(0, 1)
 
         val depStyle = workbook.createCellStyle()
         depStyle.setFont(depFont)
