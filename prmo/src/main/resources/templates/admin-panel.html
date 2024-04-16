@@ -16,7 +16,7 @@
     <li><a th:href="@{/admin/operations}">Процедуры</a></li>
     <li class="right"><a th:href="@{/logout}">Выход</a></li>
 </ul>
-<h1>This is admin panel</h1>
+<h1>Панель администратора</h1>
 <div class="main">
     <div th:replace="~{fragments :: logo}"></div>
     <form action="#" th:action="@{/admin/panel}" th:object="${report_data}" method="post">
