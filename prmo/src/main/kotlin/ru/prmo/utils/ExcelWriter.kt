@@ -74,7 +74,7 @@ class ExcelWriter(
         val pt = PropertyTemplate()
         pt.drawBorders(
             CellRangeAddress(0, sheet.lastRowNum, 0, lastCellIndex.toInt()),
-            BorderStyle.MEDIUM,
+            BorderStyle.THIN,
             BorderExtent.ALL
         )
         pt.applyBorders(sheet)
