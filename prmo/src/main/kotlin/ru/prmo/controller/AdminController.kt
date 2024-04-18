@@ -82,7 +82,8 @@ class AdminController(
         @RequestParam(value = "fileName") fileName: String
     ) {
 
-        val file = File("reports\\$fileName")
+        val file = File(fileName)
+//        val file = File("reports\\$fileName")
         response.contentType = "application/octet-stream"
         val headerKey = "Content-Disposition"
         val headerValue: String = "attachment; filename=" + file.name
