@@ -18,6 +18,8 @@ import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
+import java.security.Principal
+import java.time.LocalDate
 
 
 @Controller
@@ -128,4 +130,57 @@ class AdminController(
         }
         return "operations"
     }
+
+    @GetMapping("edit")
+    fun searchDailyTotalForEdit(
+        @RequestParam(
+            value = "date",
+            name = "date",
+            required = false,
+            defaultValue = "#{T(java.time.LocalDate).now().minusDays(1)}"
+        ) date: LocalDate,
+        @RequestParam(
+            value = "departmentName",
+            name = "departmentName",
+            required = false,
+            defaultValue = "start"
+        ) departmentName: String,
+        model: Model
+    ): String {
+        var dailyTotal = DailyTotalDto(date = date)
+
+        if (departmentName != "start") {
+            val depEntity = departmentService.getDepartmentByName(departmentName)
+            dailyTotal = dailyTotalService.getDailyTotalByDateAndDepartment(
+                date = date,
+                departmentEntity = depEntity
+            )!!
+            if (dailyTotal.operationRecords.isEmpty()) {
+                val operations = depEntity.operations.map { it.operationName }
+                for (operation in operations) {
+                    if (operation.contains("да/нет")) {
+                        dailyTotal.addStringRecord(StringOperationRecordDto(operationName = operation))
+                    } else {
+                        dailyTotal.addRecord(OperationRecordDto(operationName = operation))
+                    }
+                }
+            }
+        }
+        model["form"] = dailyTotal
+        model["departments"] = departmentService.getAllDepartments().map { it.departmentName }
+
+        return "edit-dailytotals"
+    }
+
+    @PostMapping("edit")
+    fun editDailyTotal(
+        @ModelAttribute("form") dailyTotal: DailyTotalDto,
+        model: Model,
+        principal: Principal
+    ): String {
+        val department = departmentService.getDepartmentByName(dailyTotal.departmentName!!)
+        dailyTotalService.editDailyTotalByAdmin(dailyTotal, principal, department)
+        return "redirect:/admin/panel"
+    }
+
 }

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПРМО</title>
+    <link th:href="@{/styles/css/admin-panel.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/actions.js}" charset="utf-8"></script>
+
+</head>
+<body>
+<ul class="topnav">
+    <li><a th:href="@{/admin/panel}">Выгрузка</a></li>
+    <li><a th:href="@{/admin/users}">Пользователи</a></li>
+    <li><a th:href="@{/admin/departments}">Подразделения</a></li>
+    <li><a th:href="@{/admin/operations}">Процедуры</a></li>
+    <li><a class="active" th:href="@{/admin/edit}">Внести правки</a></li>
+    <li class="right"><a th:href="@{/logout}">Выход</a></li>
+</ul>
+<h1>Внесение правок</h1>
+<div class="main">
+    <div th:replace="~{fragments :: logo}"></div>
+    <form action="#" id="searchDailyTotalForm" th:action="@{/admin/edit}" th:object="${searchDailyTotalForm}">
+        <label> Чтобы внести правки, необходимо выбрать подразделение и дату</label>
+        <label for="depSelect">
+            Выберите подразделение
+        </label>
+        <select th:name="departmentName" th:value="${form.departmentName}" id="depSelect">
+            <option th:each="department: ${departments}" th:value="${department}" th:text="${department}"></option>
+        </select>
+        <label for="dtDate">
+            Выберите дату
+        </label>
+        <input type="date"
+               id="dtDate" th:name="date" th:value="${form.date}" required>
+        <div class="wrap">
+            <button type="submit" id="searchDataBtn">
+                Найти
+            </button>
+        </div>
+    </form>
+    <form action="#" th:action="@{/admin/edit}" th:object="${form}" method="post" id="form">
+        <input class="hiddenInput" th:field="${form.date}" hidden>
+        <input class="hiddenInput" th:field="${form.departmentName}" hidden>
+        <div th:if="${ not#lists.isEmpty(form.operationRecords)}">
+            <label th:text="'Данные по ' + ${form.departmentName} + ' за ' + ${#temporals.format(form.date, 'dd MMMM yyyy')}"></label>
+            <table id="operations">
+                <thead>
+                <tr>
+                    <th>Процедуры</th>
+                    <th>Количество</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="record, itemStat : ${form.operationRecords}">
+                    <td><textarea th:field="*{operationRecords[__${itemStat.index}__].operationName}"
+                                  th:readonly="true"></textarea>
+                    </td>
+                    <td><input type="text" th:field="*{operationRecords[__${itemStat.index}__].count}"></td>
+                </tr>
+                <tr th:each="record, itemStat : ${form.stringOperationRecords}">
+                    <td class="str_op"><textarea
+                            th:field="*{stringOperationRecords[__${itemStat.index}__].operationName}"
+                            th:readonly="true"></textarea>
+                    </td>
+                    <td><input type="text" th:field="*{stringOperationRecords[__${itemStat.index}__].value}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="wrap">
+                <button type="submit" id="sendDataBtn">
+                    Отправить
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

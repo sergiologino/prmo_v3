@@ -14,6 +14,7 @@
     <li><a th:href="@{/admin/users}">Пользователи</a></li>
     <li><a th:href="@{/admin/departments}">Подразделения</a></li>
     <li><a th:href="@{/admin/operations}">Процедуры</a></li>
+    <li><a th:href="@{/admin/edit}">Внести правки</a></li>
     <li class="right"><a th:href="@{/logout}">Выход</a></li>
 </ul>
 <h1>Панель администратора</h1>
@@ -47,34 +48,6 @@
                 Сформировать отчет
             </button>
         </div>
-
-        <!--        &lt;!&ndash;        <p>Выберите дату: <input type="date" id="dateField" th:field="${form.date}">&ndash;&gt;-->
-        <!--        <div th:if="${ not#lists.isEmpty(dts_form)}">-->
-        <!--            <table id="daily_totals">-->
-        <!--                <thead>-->
-        <!--                <tr>-->
-        <!--                    <th>Дата</th>-->
-        <!--                    <th>Подразделение</th>-->
-        <!--                    <th>Всего</th>-->
-        <!--                </tr>-->
-        <!--                </thead>-->
-        <!--                <tbody>-->
-        <!--                <tr th:each="dt, itemStat : ${dts_form}">-->
-        <!--                    <td><input th:field="*{dts_form[__${itemStat.index}__].date}" th:readonly="true">-->
-        <!--                    </td>-->
-        <!--                    <td><input type="text" th:field="*{operationRecords[__${itemStat.index}__].count}"></td>-->
-        <!--                </tr>-->
-        <!--                </tbody>-->
-        <!--            </table>-->
-        <!--            <div th:if="${#temporals.format(currentDate, 'yyyy-MM-dd') == #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}" class="wrap">-->
-        <!--                <button type="submit" id="sendDataBtn" onclick="successSubmit()">-->
-        <!--                    Отправить-->
-        <!--                </button>-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--        <div th:if="${#lists.isEmpty(form.operationRecords)}">-->
-        <!--            <h3>Данные отсутствуют</h3>-->
-        <!--        </div>-->
     </form>
 </div>
 </body>

@@ -76,6 +76,15 @@ body {
     border-radius: 10px;
 }
 
+.main select {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
 
 h1 {
     color: #000000;
@@ -143,9 +152,13 @@ button {
     padding: 8px;
 }
 
-#users tr:nth-child(even){background-color: #f2f2f2;}
+#users tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
-#users tr:hover {background-color: #ddd;}
+#users tr:hover {
+    background-color: #ddd;
+}
 
 #users th {
     padding-top: 12px;
@@ -175,4 +188,59 @@ button {
 
 #dataList li:last-child {
     border-bottom: none
+}
+
+#operations {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#operations td, #operations th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    align-content: center;
+    width: 75%;
+}
+
+/*#customers tr:nth-child(even){background-color: #f2f2f2;}*/
+
+/*#customers tr:hover {background-color: #ddd;}*/
+
+#operations th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #1E80EF;
+    color: white;
+    font-size: x-large;
+}
+
+#operations input {
+    display: block;
+    width: 100%;
+    font: bold 14px/1.4 sans-serif;
+    border: none;
+    text-align: center;
+    font-size: x-large;
+}
+
+#operations textarea {
+    display: block;
+    width: 100%;
+    font: bold 14px/1.4 sans-serif;
+    border: none;
+    resize: none;
+    align-content: center;
+    /*font-size: large;*/
+    height: 100px;
+}
+
+.str_op textarea {
+    color: red;
+}
+
+.hiddenInput {
+    visibility: hidden;
+    display: contents;
 }
