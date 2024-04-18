@@ -5,7 +5,9 @@ import java.time.LocalDate
 data class DailyTotalDto(
     var operationRecords: MutableList<OperationRecordDto> = mutableListOf(),
     var stringOperationRecords: MutableList<StringOperationRecordDto> = mutableListOf(),
-    var date: LocalDate?     // format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+    var date: LocalDate?,
+    var departmentName: String? = null
+
 ) {
     fun addRecord(record: OperationRecordDto) {
         this.operationRecords.add(record)

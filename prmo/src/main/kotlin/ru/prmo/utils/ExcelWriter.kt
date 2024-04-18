@@ -22,6 +22,7 @@ class ExcelWriter(
 
 
     private val font = workbook.createFont()
+
     init {
         font.fontName = "Arial"
         font.fontHeightInPoints = 10.toShort()
@@ -29,6 +30,7 @@ class ExcelWriter(
     }
 
     private val depFont = workbook.createFont()
+
     init {
         depFont.fontName = "Arial"
         depFont.fontHeightInPoints = 10.toShort()
@@ -37,12 +39,14 @@ class ExcelWriter(
     }
 
     private val headerStyle = workbook.createCellStyle()
+
     init {
         headerStyle.setFont(font)
         headerStyle.alignment = HorizontalAlignment.CENTER
     }
 
     private val depStyle = workbook.createCellStyle()
+
     init {
         depStyle.setFont(depFont)
         depStyle.fillForegroundColor = IndexedColors.BRIGHT_GREEN.index
@@ -50,7 +54,8 @@ class ExcelWriter(
         depStyle.alignment = HorizontalAlignment.CENTER
     }
 
-    private  val depTotalStyle = workbook.createCellStyle()
+    private val depTotalStyle = workbook.createCellStyle()
+
     init {
         depTotalStyle.fillForegroundColor = IndexedColors.GOLD.index
         depTotalStyle.fillPattern = FillPatternType.SOLID_FOREGROUND
@@ -61,7 +66,11 @@ class ExcelWriter(
     lateinit var startDate: LocalDate
     lateinit var endDate: LocalDate
 
-    fun write(departments: List<DepartmentEntity>, dts: Iterable<AdminDailyTotalDto>, reportDataDto: ReportDataDto): String {
+    fun write(
+        departments: List<DepartmentEntity>,
+        dts: Iterable<AdminDailyTotalDto>,
+        reportDataDto: ReportDataDto
+    ): String {
         createHeaderRow(reportDataDto)
         createFirstColumn(departments)
         fillTableWithData(dts)
@@ -128,7 +137,7 @@ class ExcelWriter(
         sheet.createFreezePane(0, 1)
     }
 
-    private fun createFirstColumn(departments:  List<DepartmentEntity>) {
+    private fun createFirstColumn(departments: List<DepartmentEntity>) {
 
         var row = 1
         for (dep in departments) {
@@ -155,7 +164,7 @@ class ExcelWriter(
         }
     }
 
-    private fun fillTableWithData(dts:  Iterable<AdminDailyTotalDto>) {
+    private fun fillTableWithData(dts: Iterable<AdminDailyTotalDto>) {
         for (dt in dts) {
             val dateColumnIndex = findDateColumn(sheet, dt.date)
             if (dateColumnIndex != -1) {

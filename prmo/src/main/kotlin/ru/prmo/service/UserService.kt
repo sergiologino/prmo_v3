@@ -39,7 +39,7 @@ class UserService(
 
     fun createNewUser(userRegistrationDto: UserRegistrationDto) {
         val newUser = UserEntity(
-            username = userRegistrationDto.username!!,
+            username = userRegistrationDto.username,
             password = passwordEncoder.encode(userRegistrationDto.password),
             department = departmentService.getDepartmentByName(userRegistrationDto.department!!),
             roles = listOf(roleRepository.findByRoleName("ROLE_USER"))

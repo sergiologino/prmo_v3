@@ -6,10 +6,7 @@ import ru.prmo.dto.AdminDailyTotalDto
 import ru.prmo.dto.DailyTotalDto
 import ru.prmo.dto.OperationRecordDto
 import ru.prmo.dto.StringOperationRecordDto
-import ru.prmo.entity.DailyTotalEntity
-import ru.prmo.entity.DepartmentEntity
-import ru.prmo.entity.OperationRecordEntity
-import ru.prmo.entity.StringOperationRecordEntity
+import ru.prmo.entity.*
 import ru.prmo.repository.DailyTotalRepository
 import ru.prmo.repository.OperationRecordRepository
 import ru.prmo.repository.StringOperationRecordRepository
@@ -49,11 +46,77 @@ class DailyTotalService(
         }
 
         val notNullCounts = dailyTotalDto.operationRecords.mapNotNull { it.count }
+        saveDailyTotalWithOperations(dailyTotalDto, currentUser, department = currentUser.department!!, notNullCounts)
 
+
+    }
+
+    @Transactional
+    fun editDailyTotalByAdmin(dailyTotalDto: DailyTotalDto, principal: Principal, department: DepartmentEntity) {
+        val currentUser = userService.findByUsername(principal.name)
+        val dt = getDailyTotalByDateAndDepartment(dailyTotalDto.date!!, department)
+
+        if (dt!!.operationRecords.isNotEmpty()) {
+
+            dailyTotalRepository.deleteByDateAndDepartment(dailyTotalDto.date!!, department)
+        }
+
+        val notNullCounts = dailyTotalDto.operationRecords.mapNotNull { it.count }
+        saveDailyTotalWithOperations(dailyTotalDto, currentUser!!, department, notNullCounts)
+
+
+    }
+
+    fun getDailyTotalByDateAndDepartment(date: LocalDate, departmentEntity: DepartmentEntity): DailyTotalDto? {
+        return dailyTotalRepository.findByDateAndDepartment(date, departmentEntity)?.toDto()
+            ?: DailyTotalDto(date = date, departmentName = departmentEntity.departmentName)
+    }
+
+    private fun DailyTotalEntity.toDto(): DailyTotalDto {
+        return DailyTotalDto(
+            date = this.date,
+            departmentName = this.department.departmentName,
+            operationRecords = this.operationRecords.map {
+                OperationRecordDto(
+                    operationName = it.operationName,
+                    count = it.count
+                )
+            }.toMutableList(),
+            stringOperationRecords = this.stringOperationRecords.map {
+                StringOperationRecordDto(
+                    operationName = it.operationName,
+                    value = it.value
+                )
+            }.toMutableList()
+
+
+        )
+    }
+
+    fun OperationRecordEntity.toDto(): OperationRecordDto {
+        return OperationRecordDto(
+            operationName = this.operationName,
+            count = this.count
+        )
+    }
+
+    fun StringOperationRecordEntity.toDto(): StringOperationRecordDto {
+        return StringOperationRecordDto(
+            operationName = this.operationName,
+            value = this.value
+        )
+    }
+
+    private fun saveDailyTotalWithOperations(
+        dailyTotalDto: DailyTotalDto,
+        currentUser: UserEntity,
+        department: DepartmentEntity,
+        notNullCounts: List<Int>
+    ) {
         var dailyTotal = DailyTotalEntity(
             date = dailyTotalDto.date!!,
-            submittedBy = currentUser!!.username,
-            department = departmentService.getDepartmentById(currentUser.department!!.departmentId),
+            submittedBy = currentUser.username,
+            department = department,
             total = notNullCounts.sum(),
         )
         dailyTotal = dailyTotalRepository.save(dailyTotal)
@@ -75,56 +138,5 @@ class DailyTotalService(
 
         operationRecordRepository.saveAll(operationRecords)  // не забыть заменить на сервис!!!!
         stringOperationRecordRepository.saveAll(stringOperationRecords)
-
     }
-
-//    fun getDailyTotalByDate(date: LocalDate): DailyTotalDto? {
-//        return dailyTotalRepository.findByDate(date)?.toDto() ?: DailyTotalDto(
-//            date = date
-//        )
-//    }
-
-    fun getDailyTotalByDateAndDepartment(date: LocalDate, departmentEntity: DepartmentEntity): DailyTotalDto? {
-        return dailyTotalRepository.findByDateAndDepartment(date, departmentEntity)?.toDto()
-            ?: DailyTotalDto(date = date)
-    }
-
-    private fun DailyTotalEntity.toDto(): DailyTotalDto {
-        return DailyTotalDto(
-            date = this.date,
-            operationRecords = this.operationRecords.map {
-                OperationRecordDto(
-                    operationName = it.operationName,
-                    count = it.count
-                )
-            }.toMutableList(),
-            stringOperationRecords = this.stringOperationRecords.map {
-                StringOperationRecordDto(
-                    operationName = it.operationName,
-                    value = it.value
-                )
-            }.toMutableList()
-
-
-        )
-//        val dailyTotal = DailyTotalDto()
-//        for (operation in operations) {
-//            dailyTotal.addRecord(OperationRecordDto(operationName = operation))
-//        }
-    }
-
-    fun OperationRecordEntity.toDto(): OperationRecordDto {
-        return OperationRecordDto(
-            operationName = this.operationName,
-            count = this.count
-        )
-    }
-
-    fun StringOperationRecordEntity.toDto(): StringOperationRecordDto {
-        return StringOperationRecordDto(
-            operationName = this.operationName,
-            value = this.value
-        )
-    }
-
 }

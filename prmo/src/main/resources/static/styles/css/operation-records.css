@@ -135,7 +135,8 @@ h2 {
     font: bold 14px/1.4 sans-serif;
     border: none;
     text-align: center;
-    font-size: x-large;
+    font-size: xxx-large;
+    height: 100px;
 }
 
 #operations textarea {
