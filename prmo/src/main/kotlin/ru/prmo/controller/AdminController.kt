@@ -3,6 +3,7 @@ package ru.prmo.controller
 
 import jakarta.servlet.ServletOutputStream
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
@@ -69,6 +70,7 @@ class AdminController(
         val filePath = excelWriter.write(departments, dts, reportDataDto)
 
         val file = File(filePath)
+
         reportDataDto.fileName = file.name
         println(file.absolutePath)
         model["report_data"] = reportDataDto
@@ -81,9 +83,13 @@ class AdminController(
         response: HttpServletResponse,
         @RequestParam(value = "fileName") fileName: String
     ) {
+        val resource = ClassPathResource("application.yaml")
 
-        val file = File(fileName)
-//        val file = File("reports\\$fileName")
+
+        val parent = resource.file.parentFile.absolutePath
+        val file = File("$parent\\reports\\$fileName")
+
+
         response.contentType = "application/octet-stream"
         val headerKey = "Content-Disposition"
         val headerValue: String = "attachment; filename=" + file.name
@@ -159,7 +165,7 @@ class AdminController(
             if (dailyTotal.operationRecords.isEmpty()) {
                 val operations = depEntity.operations.map { it.operationName }
                 for (operation in operations) {
-                    if (operation.contains("δΰ/νες")) {
+                    if (operation.contains("Γ€Γ /Γ­Γ₯Γ²")) {
                         dailyTotal.addStringRecord(StringOperationRecordDto(operationName = operation))
                     } else {
                         dailyTotal.addRecord(OperationRecordDto(operationName = operation))
