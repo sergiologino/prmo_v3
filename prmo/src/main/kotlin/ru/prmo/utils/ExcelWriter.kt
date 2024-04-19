@@ -7,11 +7,9 @@ import org.apache.poi.ss.util.CellReference
 import org.apache.poi.ss.util.PropertyTemplate
 import org.apache.poi.xssf.usermodel.XSSFSheet
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import org.springframework.core.io.ClassPathResource
 import ru.prmo.dto.AdminDailyTotalDto
 import ru.prmo.dto.ReportDataDto
 import ru.prmo.entity.DepartmentEntity
-import java.io.File
 import java.io.FileOutputStream
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -94,16 +92,16 @@ class ExcelWriter(
         val formattedEndDate = endDate.format(formatter)
 
 
-        val resource = ClassPathResource("application.yaml")
-        val file = resource.file.absolutePath
-        val parent = resource.file.parentFile.absolutePath
-        println(file)
-        println(parent)
-        val filePath = "$parent\\reports\\Report $formattedStartDate - $formattedEndDate.xlsx"
-        val newDir = File(parent, "reports")
-        if (!newDir.exists()) {
-            newDir.mkdir()
-        }
+//        val resource = ClassPathResource("application.yaml")
+//        val file = resource.file.absolutePath
+//        val parent = resource.file.parentFile.absolutePath
+//        println(file)
+//        println(parent)
+        val filePath = "Report $formattedStartDate-$formattedEndDate.xlsx"
+//        val newDir = File(parent, "reports")
+//        if (!newDir.exists()) {
+//            newDir.mkdir()
+//        }
 
       
 

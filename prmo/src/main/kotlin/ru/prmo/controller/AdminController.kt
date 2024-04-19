@@ -3,7 +3,6 @@ package ru.prmo.controller
 
 import jakarta.servlet.ServletOutputStream
 import jakarta.servlet.http.HttpServletResponse
-import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
@@ -83,11 +82,11 @@ class AdminController(
         response: HttpServletResponse,
         @RequestParam(value = "fileName") fileName: String
     ) {
-        val resource = ClassPathResource("application.yaml")
-
-
-        val parent = resource.file.parentFile.absolutePath
-        val file = File("$parent\\reports\\$fileName")
+//        val resource = ClassPathResource("application.yaml")
+//
+//
+//        val parent = resource.file.parentFile.absolutePath
+        val file = File(fileName)
 
 
         response.contentType = "application/octet-stream"
