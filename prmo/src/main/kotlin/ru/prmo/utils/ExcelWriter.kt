@@ -11,6 +11,7 @@ import org.springframework.core.io.ClassPathResource
 import ru.prmo.dto.AdminDailyTotalDto
 import ru.prmo.dto.ReportDataDto
 import ru.prmo.entity.DepartmentEntity
+import java.io.File
 import java.io.FileOutputStream
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
