@@ -85,8 +85,11 @@ class AdminController(
     ) {
         val resource = ClassPathResource("application.yaml")
 
+
         val parent = resource.file.parentFile.absolutePath
         val file = File("$parent\\reports\\$fileName")
+
+
         response.contentType = "application/octet-stream"
         val headerKey = "Content-Disposition"
         val headerValue: String = "attachment; filename=" + file.name
@@ -162,7 +165,7 @@ class AdminController(
             if (dailyTotal.operationRecords.isEmpty()) {
                 val operations = depEntity.operations.map { it.operationName }
                 for (operation in operations) {
-                    if (operation.contains("δΰ/νες")) {
+                    if (operation.contains("Γ€Γ /Γ­Γ₯Γ²")) {
                         dailyTotal.addStringRecord(StringOperationRecordDto(operationName = operation))
                     } else {
                         dailyTotal.addRecord(OperationRecordDto(operationName = operation))
