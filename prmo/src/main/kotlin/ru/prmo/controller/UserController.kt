@@ -40,7 +40,7 @@ class UserController(
         if (dailyTotal.operationRecords.isEmpty()) {
             val operations = departmentService.getDepartmentByUser(principal).operations.map { it.operationName }
             for (operation in operations) {
-                if (operation.contains("δΰ/νες")) {
+                if (operation.contains("(Π΄Π°/Π½ΠµΡ‚)", ignoreCase = true)) {
                     dailyTotal.addStringRecord(StringOperationRecordDto(operationName = operation))
                 } else {
                     dailyTotal.addRecord(OperationRecordDto(operationName = operation))
@@ -50,7 +50,6 @@ class UserController(
 
 //        println(date)
 //        model["currentDate"] = dailyTotal.date
-        model["errorMsg"] = ""
         model["form"] = dailyTotal
         model["userData"] = UserDataDto(
             username = currentUser.username,
