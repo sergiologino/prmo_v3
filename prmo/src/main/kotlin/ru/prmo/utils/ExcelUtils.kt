@@ -5,11 +5,12 @@ import ru.prmo.dto.AdminDailyTotalDto
 import ru.prmo.dto.OperationRecordDto
 import ru.prmo.dto.StringOperationRecordDto
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 fun findDateColumn(sheet: XSSFSheet, date: LocalDate): Int {
     for (column in 1..sheet.getRow(0).lastCellNum) {
         val cell = sheet.getRow(0)?.getCell(column)
-        if (cell != null && cell.stringCellValue == date.toString()) {
+        if (cell != null && cell.stringCellValue == date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))) {
             return column
         }
     }
