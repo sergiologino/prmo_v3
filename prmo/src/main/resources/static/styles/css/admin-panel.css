@@ -170,16 +170,16 @@ button {
     text-align: center;
 }
 
-#dataList {
-    background: #1E80EF;
-    border-radius: 10px;
-    /* padding: 0; */
-    border: 1px solid #ddd;
-}
+/*#dataList {*/
+/*    background: #1E80EF;*/
+/*    border-radius: 10px;*/
+/*     padding: 0; */
+/*    border: 1px solid #ddd;*/
+/*}*/
 
-#dataList li:nth-child(odd) {
-    color: white;
-}
+/*#dataList li:nth-child(odd) {*/
+/*    color: white;*/
+/*}*/
 
 #dataList li {
     padding: 8px 16px;
@@ -243,4 +243,90 @@ button {
 .hiddenInput {
     visibility: hidden;
     display: contents;
+}
+
+#menu {
+    display: none;
+}
+
+.burger label {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    width: 5rem;
+    height: 5rem;
+    background: #1E80EF;
+    border: .1rem solid #ffffff;
+    text-align: center;
+    line-height: 5rem;
+    color: #f3f3f3;
+    font-size: 2.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.burger label .fa-times {
+    display: none;
+    text-align: center;
+    line-height: 5rem;
+}
+
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 350px;
+    height: 100%;
+    background: rgba(255,255,255,0.7);
+    box-shadow: 0 0 10px rgba(0,0,0,.8);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*opacity: 0;*/
+    /*visibility: hidden;*/
+    left: -150%;
+    transition: 0.5s ease;
+}
+
+.navbar ul {
+    list-style-type: none;
+}
+
+.navbar ul li {
+    margin: .5rem;
+}
+
+.navbar ul li a {
+    font-size: 1.5rem;
+    color: #f3f3f3;
+    transition: 0.3s;
+    background-color: #1E80EF;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+
+
+#menu:checked ~ .navbar {
+    /*opacity: 1;*/
+    /*visibility: visible;*/
+    left: 0;
+}
+
+#menu:checked ~ label .fa-bars {
+    display: none;
+}
+
+#menu:checked ~ label .fa-times {
+    display: block;
+}
+
+.navbar ul li a:active + #menu:checked ~ label .fa-bars {
+    display: block;
 }
