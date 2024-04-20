@@ -1,9 +1,11 @@
 package ru.prmo.controller
 
+import jakarta.validation.Valid
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
+import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.*
 import ru.prmo.dto.DailyTotalDto
 import ru.prmo.dto.OperationRecordDto
@@ -48,6 +50,7 @@ class UserController(
 
 //        println(date)
 //        model["currentDate"] = dailyTotal.date
+        model["errorMsg"] = ""
         model["form"] = dailyTotal
         model["userData"] = UserDataDto(
             username = currentUser.username,
@@ -58,10 +61,13 @@ class UserController(
 
     @PostMapping("workspace")
     fun createNewDailyTotal(
-        @ModelAttribute("form") dailyTotal: DailyTotalDto,
+        @Valid @ModelAttribute("form") dailyTotal: DailyTotalDto,
+        errors: Errors,
         model: Model,
         principal: Principal
     ): String {
+
+        val currentDate = dailyTotal.date
 
         if (dailyTotal.date!!.isBefore(LocalDate.now().minusDays(1))) {
             throw BadDayToSendData()
@@ -69,7 +75,7 @@ class UserController(
             dailyTotalService.createDailyTotal(dailyTotal, principal)
         }
 
-        val currentDate = dailyTotal.date
+
         return "redirect:/user/workspace?date=$currentDate"
     }
 }
