@@ -273,14 +273,13 @@ button {
 }
 
 
-
 .navbar {
     position: fixed;
     top: 0;
     width: 350px;
     height: 100%;
-    background: rgba(255,255,255,0.7);
-    box-shadow: 0 0 10px rgba(0,0,0,.8);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .8);
     backdrop-filter: blur(3px);
     display: flex;
     justify-content: center;
@@ -310,7 +309,6 @@ button {
     display: inline-block;
     border-radius: 10px;
 }
-
 
 
 #menu:checked ~ .navbar {

@@ -178,14 +178,16 @@ class ExcelWriter(
             val dateColumnIndex = findDateColumn(sheet, dt.date)
             if (dateColumnIndex != -1) {
                 val departmentRowIndex = findDepartmentRow(sheet, dt.departmentName)
-                val zhdTotalRow = sheet.getRow(departmentRowIndex + dt.operationRecords.size + dt.stringOperationRecords.size + 1)
+                val zhdTotalRow =
+                    sheet.getRow(departmentRowIndex + dt.operationRecords.size + dt.stringOperationRecords.size + 1)
                 val zhdTotalCell = zhdTotalRow.createCell(dateColumnIndex)
                 val columnName = CellReference.convertNumToColString(dateColumnIndex)
                 val start = departmentRowIndex + 2
                 val end = departmentRowIndex + 5
                 zhdTotalCell.cellFormula = "SUM($columnName$start:$columnName$end)"
                 zhdTotalCell.cellStyle = depTotalStyle
-                val depTotalRow = sheet.getRow(departmentRowIndex + dt.operationRecords.size + dt.stringOperationRecords.size + 2)
+                val depTotalRow =
+                    sheet.getRow(departmentRowIndex + dt.operationRecords.size + dt.stringOperationRecords.size + 2)
                 val depTotalCell = depTotalRow.createCell(dateColumnIndex)
                 depTotalCell.setCellValue(dt.total.toDouble())
                 depTotalCell.cellStyle = depTotalStyle
@@ -195,12 +197,12 @@ class ExcelWriter(
                         sheet.getRow(operationRowIndex).createCell(dateColumnIndex)
                             .setCellValue(op.count?.toDouble() ?: 0.0)
                     }
-                for (strop in dt.stringOperationRecords) {
-                    val operationRowIndex = findDepartmentOperationRow(sheet, dt, strop)
-                    if (operationRowIndex != -1) {
-                        sheet.getRow(operationRowIndex).createCell(dateColumnIndex).setCellValue(strop.value)
+                    for (strop in dt.stringOperationRecords) {
+                        val operationRowIndex = findDepartmentOperationRow(sheet, dt, strop)
+                        if (operationRowIndex != -1) {
+                            sheet.getRow(operationRowIndex).createCell(dateColumnIndex).setCellValue(strop.value)
+                        }
                     }
-                }
 
                 }
             }
