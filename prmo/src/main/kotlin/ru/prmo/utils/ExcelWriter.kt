@@ -81,7 +81,7 @@ class ExcelWriter(
 
         val pt = PropertyTemplate()
         pt.drawBorders(
-            CellRangeAddress(0, sheet.lastRowNum, 0, lastCellIndex.toInt()),
+            CellRangeAddress(0, sheet.lastRowNum, 0, lastCellIndex.toInt() - 1),
             BorderStyle.THIN,
             BorderExtent.ALL
         )
@@ -102,8 +102,6 @@ class ExcelWriter(
 //        if (!newDir.exists()) {
 //            newDir.mkdir()
 //        }
-
-      
 
 
         FileOutputStream(filePath).use { outputStream -> workbook.write(outputStream) }
@@ -138,7 +136,7 @@ class ExcelWriter(
         var date = startDate
         while (date.isBefore(endDate.plusDays(1))) {
             val dateHeaderCell = headerRow.createCell(column)
-            dateHeaderCell.setCellValue(date.toString())
+            dateHeaderCell.setCellValue(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
             dateHeaderCell.cellStyle = headerStyle
             sheet.autoSizeColumn(column)
             column++

@@ -12,7 +12,7 @@
     <img th:src="@{images/logo/prmo_logo_mid.png}" alt="logo_md">
     <h1>“РЖД МЕДИЦИНА” г. КАЛУГА</h1>
     <h1>ОТЧЕТ О ПРЕДРЕЙСОВЫХ ОСМОТРАХ</h1>
-    <div th:if="${param.error}"> Неверное имя пользователя или пароль</div>
+    <div th:if="${param.error}" style="color: red"> Неверное имя пользователя или пароль</div>
     <form th:action="@{/login}" method="post">
         <label for="username">
             Имя пользователя:

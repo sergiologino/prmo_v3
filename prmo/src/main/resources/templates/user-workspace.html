@@ -25,7 +25,6 @@
         </div>
     </form>
 
-
     <form action="#" th:action="@{/user/workspace}" th:object="${form}" method="post" id="form">
         <h2 th:text="'Данные на ' + ${#temporals.dayOfWeekName(form.date)} + ', ' + ${#temporals.format(form.date, 'd MMMM yyyy')} + ' года'"></h2>
         <input th:field="${form.date}" hidden>
@@ -44,7 +43,8 @@
                     <td><textarea th:field="*{operationRecords[__${itemStat.index}__].operationName}"
                                   th:readonly="true"></textarea>
                     </td>
-                    <td><input type="text" th:field="*{operationRecords[__${itemStat.index}__].count}"></td>
+                    <td><input type="number" min="0" max="100" step="1"
+                               th:field="*{operationRecords[__${itemStat.index}__].count}"></td>
                 </tr>
                 <tr th:each="record, itemStat : ${form.stringOperationRecords}">
                     <td class="str_op"><textarea
