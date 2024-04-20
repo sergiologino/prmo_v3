@@ -10,5 +10,24 @@
     <h3>“РЖД МЕДИЦИНА” г. КАЛУГА</h3>
     <h3>ОТЧЕТ О ПРЕДРЕЙСОВЫХ ОСМОТРАХ</h3>
 </div>
+
+<header class="burger" th:fragment="sideBar">
+    <input type="checkbox" id="menu">
+    <label for="menu">
+        <i class="fas fa-bars"></i>
+        <i class="fas fa-times"></i>
+    </label>
+
+    <nav class="navbar">
+        <ul>
+            <li><a th:href="@{/admin/panel}">Выгрузка</a></li>
+            <li><a th:href="@{/admin/users}">Пользователи</a></li>
+            <li><a th:href="@{/admin/departments}">Подразделения</a></li>
+            <li><a th:href="@{/admin/operations}">Процедуры</a></li>
+            <li><a th:href="@{/admin/edit}">Внести правки</a></li>
+            <li><a th:href="@{/logout}">Выход</a></li>
+        </ul>
+    </nav>
+</header>
 </body>
 </html>
