@@ -23,9 +23,23 @@
 <h1>Список процедур</h1>
 <div class="main">
     <div th:replace="~{fragments :: logo}"></div>
-    <ol id="dataList">
-        <li th:each="operation : ${operations}" th:text="${operation.operationName}"></li>
-    </ol>
+<!--    <ol id="dataList">-->
+<!--        <li th:each="operation : ${operations}" th:text="${operation.operationName}"></li>-->
+<!--    </ol>-->
+    <p><a th:href="@{/admin/operations/add}"> Добавить процедуру</a></p>
+
+    <table id="users">
+        <thead>
+        <tr>
+            <th>Процедуры</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="operation : ${operations}">
+            <td th:text="${operation.operationName}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

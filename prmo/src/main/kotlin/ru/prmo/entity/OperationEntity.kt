@@ -12,5 +12,12 @@ class OperationEntity(
     @Column(name = "operation_name", unique = true, nullable = false)
     val operationName: String = "",
     @Column(name = "is_visible", nullable = false)
-    val isVisible: Boolean = true
+    val isVisible: Boolean = true,
+    @ManyToMany
+    @JoinTable(
+        name = "departments_operations",
+        joinColumns = [JoinColumn(name = "operation_id")],
+        inverseJoinColumns = [JoinColumn(name = "department_id")]
+    )
+    val departments: List<DepartmentEntity> = emptyList()
 )

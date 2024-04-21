@@ -16,7 +16,7 @@ class MVCConfig : WebMvcConfigurer {
             .addResourceLocations("classpath:/static/styles/css/")
 
 
-        registry.addResourceHandler("/images/**", "/user/images/**", "admin/images/**", "admin/departments/images/**")
+        registry.addResourceHandler("/images/**", "/user/images/**", "admin/images/**", "admin/departments/images/**", "admin/operations/images/**")
             .addResourceLocations("classpath:/static/images/")
         registry.addResourceHandler("/js/**")
             .addResourceLocations("classpath:/static/js/")

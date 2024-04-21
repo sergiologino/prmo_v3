@@ -150,6 +150,18 @@ class AdminController(
         return "operations"
     }
 
+    @GetMapping("operations/add")
+    fun getOperationCreationForm(model: Model): String {
+        model["newOperation"] = OperationDto()
+        return "add-operation"
+    }
+
+    @PostMapping("operations/add")
+    fun addOperation(@ModelAttribute("newOperation") operationDto: OperationDto, model: Model): String {
+        operationService.addOperation(operationDto)
+        return "redirect:/admin/operations"
+    }
+
     @GetMapping("edit")
     fun searchDailyTotalForEdit(
         @RequestParam(
