@@ -127,6 +127,19 @@ class AdminController(
         return "departments"
     }
 
+    @GetMapping("departments/add")
+    fun getDepartmentCreationForm(model: Model): String {
+        model["newDepartment"] = DepartmentDto()
+        return "add-department"
+    }
+    @PostMapping("departments/add")
+    fun addDepartment(@ModelAttribute("newDepartment") departmentDto: DepartmentDto, model: Model): String {
+        departmentService.addDepartment(departmentDto)
+        return "redirect:/admin/departments"
+    }
+
+
+
     @GetMapping("operations")
     fun getOperations(model: Model): String {
         model["operations"] = operationService.getAllOperations().map {
@@ -135,6 +148,18 @@ class AdminController(
             )
         }
         return "operations"
+    }
+
+    @GetMapping("operations/add")
+    fun getOperationCreationForm(model: Model): String {
+        model["newOperation"] = OperationDto()
+        return "add-operation"
+    }
+
+    @PostMapping("operations/add")
+    fun addOperation(@ModelAttribute("newOperation") operationDto: OperationDto, model: Model): String {
+        operationService.addOperation(operationDto)
+        return "redirect:/admin/operations"
     }
 
     @GetMapping("edit")
@@ -164,7 +189,7 @@ class AdminController(
             if (dailyTotal.operationRecords.isEmpty()) {
                 val operations = depEntity.operations.map { it.operationName }
                 for (operation in operations) {
-                    if (operation.contains("äà/íåò")) {
+                    if (operation.contains("да/нет")) {
                         dailyTotal.addStringRecord(StringOperationRecordDto(operationName = operation))
                     } else {
                         dailyTotal.addRecord(OperationRecordDto(operationName = operation))
