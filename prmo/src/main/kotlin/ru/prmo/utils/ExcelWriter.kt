@@ -72,7 +72,7 @@ class ExcelWriter(
     ): String {
         createHeaderRow(reportDataDto)
         createFirstColumn(departments)
-        fillTableWithData(dts)
+        fillTableWithData(dts, departments)
         createTotalsPart()
         createTotalColumn(departments)
         sheet.autoSizeColumn(0)
@@ -173,13 +173,13 @@ class ExcelWriter(
         sheet.createFreezePane(1, 0)
     }
 
-    private fun fillTableWithData(dts: Iterable<AdminDailyTotalDto>) {
+    private fun fillTableWithData(dts: Iterable<AdminDailyTotalDto>, departments: List<DepartmentEntity>) {
         for (dt in dts) {
             val dateColumnIndex = findDateColumn(sheet, dt.date)
             if (dateColumnIndex != -1) {
                 val departmentRowIndex = findDepartmentRow(sheet, dt.departmentName)
                 val zhdTotalRow =
-                    sheet.getRow(departmentRowIndex + dt.operationRecords.size + dt.stringOperationRecords.size + 1)
+                    sheet.getRow(departmentRowIndex + departments[0].operations.size + 1)
                 val zhdTotalCell = zhdTotalRow.createCell(dateColumnIndex)
                 val columnName = CellReference.convertNumToColString(dateColumnIndex)
                 val start = departmentRowIndex + 2
@@ -187,7 +187,7 @@ class ExcelWriter(
                 zhdTotalCell.cellFormula = "SUM($columnName$start:$columnName$end)"
                 zhdTotalCell.cellStyle = depTotalStyle
                 val depTotalRow =
-                    sheet.getRow(departmentRowIndex + dt.operationRecords.size + dt.stringOperationRecords.size + 2)
+                    sheet.getRow(departmentRowIndex + departments[0].operations.size + 2)
                 val depTotalCell = depTotalRow.createCell(dateColumnIndex)
                 depTotalCell.setCellValue(dt.total.toDouble())
                 depTotalCell.cellStyle = depTotalStyle
