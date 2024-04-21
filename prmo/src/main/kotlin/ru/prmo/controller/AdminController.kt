@@ -164,7 +164,7 @@ class AdminController(
             if (dailyTotal.operationRecords.isEmpty()) {
                 val operations = depEntity.operations.map { it.operationName }
                 for (operation in operations) {
-                    if (operation.contains("äà/íåò")) {
+                    if (operation.contains("да/нет")) {
                         dailyTotal.addStringRecord(StringOperationRecordDto(operationName = operation))
                     } else {
                         dailyTotal.addRecord(OperationRecordDto(operationName = operation))
