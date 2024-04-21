@@ -23,9 +23,23 @@
 <h1>Список подразделений</h1>
 <div class="main">
     <div th:replace="~{fragments :: logo}"></div>
-    <ol id="dataList">
-        <li th:each="department : ${departments}" th:text="${department.departmentName}"></li>
-    </ol>
+<!--    <ol id="dataList">-->
+<!--        <li th:each="department : ${departments}" th:text="${department.departmentName}"></li>-->
+<!--    </ol>-->
+    <p><a th:href="@{/admin/departments/add}"> Добавить подразделение</a></p>
+
+    <table id="users">
+        <thead>
+        <tr>
+            <th>Подразделение</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="department : ${departments}">
+            <td th:text="${department.departmentName}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

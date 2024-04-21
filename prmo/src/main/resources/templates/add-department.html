@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ПРМО</title>
+  <link th:href="@{/styles/css/login.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="main">
+  <img th:src="@{images/logo/prmo_logo_mid.png}" alt="logo_md">
+  <h1>“РЖД МЕДИЦИНА” г. КАЛУГА</h1>
+  <h1>ОТЧЕТ О ПРЕДРЕЙСОВЫХ ОСМОТРАХ</h1>
+  <form action="#" th:action="@{/admin/departments/add}" th:object="${newDepartment}" method="post" id="newDepartment">
+    <label>
+      Наименование нового подразделения:
+    </label>
+    <input type="text" th:field="*{departmentName}" required>
+    <button type="submit" id="sendDataBtn">
+      Добавить
+    </button>
+  </form>
+</div>
+</body>
+</html>
