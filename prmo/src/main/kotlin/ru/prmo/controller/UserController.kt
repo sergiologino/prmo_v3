@@ -7,6 +7,7 @@ import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import ru.prmo.dto.DailyTotalDto
 import ru.prmo.dto.OperationRecordDto
 import ru.prmo.dto.StringOperationRecordDto
@@ -63,7 +64,8 @@ class UserController(
         @Valid @ModelAttribute("form") dailyTotal: DailyTotalDto,
         errors: Errors,
         model: Model,
-        principal: Principal
+        principal: Principal,
+        redirectAttributes: RedirectAttributes
     ): String {
 
         val currentDate = dailyTotal.date
@@ -74,7 +76,7 @@ class UserController(
             dailyTotalService.createDailyTotal(dailyTotal, principal)
         }
 
-
+        redirectAttributes.addFlashAttribute("success", "Данные успешно отправлены!")
         return "redirect:/user/workspace?date=$currentDate"
     }
 }

@@ -150,6 +150,7 @@ button {
 #users td, #users th {
     border: 1px solid #ddd;
     padding: 8px;
+    text-align: left;
 }
 
 #users tr:nth-child(even) {
